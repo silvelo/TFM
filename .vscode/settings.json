@@ -1,0 +1,107 @@
+{
+  "editor.formatOnSave": false,
+  "editor.wordWrap": "on",
+  //"latex-workshop.latex.autoBuild.run": "never",
+  "latex-workshop.view.pdf.viewer": "browser",
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.synctex.synctexjs.enabled": true,
+  "latex-workshop.synctex.path": "D:\\texlive\\2021\\bin\\win32\\synctex.exe",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "lualatex->biber->lualatex*2",
+      "tools": ["lualatex", "biber", "lualatex", "lualatex"]
+    },
+    {
+      "name": "pdflatex->bibtex->pdflatex*2",
+      "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
+    },
+    {
+      "name": "xelatex->bibtex->xelatex*2",
+      "tools": ["xelatex", "bibtex", "xelatex", "xelatex"]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "lualatex",
+      "command": "lualatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"]
+    },
+    {
+      "name": "biber",
+      "command": "biber",
+      "args": ["%DOCFILE%"]
+    },
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"]
+    }
+  ],
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.glg",
+    "*.glo",
+    "*.gls",
+    "*.ist",
+    "*.fls",
+    "*.log",
+    "*.fdb_latexmk"
+  ],
+  "cSpell.enabled": true,
+  "cSpell.language": "es,en",
+  "cSpell.words": [
+    "escalabilidad"
+  ]
+}

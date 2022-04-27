@@ -1,0 +1,146 @@
+\chapter{Inteligencia Artificial}
+\label{sec:ia}
+
+En este capítulo se detallarán los pasos seguidos respecto a la parte de Inteligencia Artificial, el análisis y procesamiento de los datos.
+
+
+\section{Selección de características}
+\label{sec:ia:feature_selection}
+
+Una vez obtenidos los suficientes datos de los usuarios, se han analizado y tratado con el fin de encontrar  posibles valores incorrectos y buscar las mejores características para la predicción.
+
+Cada \textit{input} de un usuario contiene las características relativas a la posición del ratón~[\cref{tab:raw_inputs}]. Los datos son procesados para obtener el conjunto de características más complejas comentadas en la~\cref{tab:transform_inputs} y que se usarán para obtener los modelos finales.
+
+
+Con las características obtenidas se ha procedido a seleccionar las mejores para intentar optimizar el rendimiento del los algoritmos. Para ello se han utilizado varias técnicas:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Correlación}: Consiste en obtener la relación entre cada característica y eliminar aquellas que poseen un alto nivel~[\cref{fig:correlations_features_selected}]. En nuestro caso se ha tomado \textit{0.8} como el límite máximo de esa relación.
+    
+    \item \textbf{RFE (Recursive Feature Elimination)}: Esta técnica elimina en cada iteración las características menos importantes, obteniendo en cada una de ellas la predicción~[\cref{fig:rfe}] y el número de características óptimas para nuestro algoritmo. En nuestro caso se han obtenido los valores optimizándolos para las métricas \textit{precision} y \textit{recall}, empleando el algoritmo \textit{Random Forest}, debido a su capacidad de proporcionar un valor de importancia para cada característica.
+    
+\end{itemize}
+
+\cfig{images/analytics/correlations_features_remove.png}{Matriz de correlación de la selección de características}{fig:correlations_features_selected}
+
+\cfig{images/analytics/rfe.png}{Gráfica de eliminación recursiva de características}{fig:rfe}
+
+
+Una vez aplicadas las dos técnicas se obtienen los resultados de rendimiento para cada caso, y de esta forma, analizar los resultados obtenidos en función de las métricas de \textit{precision} y \textit{recall}~[\cref{tab:features_remove_result}].
+
+Los resultados muestran valores similares en todas las métricas. Donde más variación existe es en el número de características, y por ello, descartamos la opción de \textit{RFE Recall}, ya que solo tiene en cuenta una característica (\textit{distance}) para obtener la predicción.
+
+De las dos opciones restantes observamos que con más características obtenemos unos mayores valores en ambas métricas, una menor desviación y un tiempo más bajo. Por estas razones se utilizarán las 20 características obtenidas del proceso de correlación.
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{l C c c c}
+        \toprule
+        Tipo          & \# características & Precision          & Recall             & Tiempo             \\        \midrule \midrule
+        Correlation   & 20                   & 0.914 ($\pm$0.085) & 0.435 ($\pm$0.085) & 3.443 ($\pm$0.090) \\        \midrule
+        RFE Precision & 8                    & 0.903 ($\pm$0.109) & 0.432 ($\pm$0.109) & 4.399 ($\pm$0.291) \\        \midrule
+        RFE Recall    & 1                    & 0.920 ($\pm$0.074) & 0.450 ($\pm$0.074) & 4.294 ($\pm$0.139) \\
+        \bottomrule
+    \end{tabularx}
+    \caption{\label{tab:features_remove_result}Resultados usando Random Forest}
+\end{table}
+
+
+
+
+\subsection{Tratamiento de datos}
+\label{sec:ia:data_processing}
+
+
+El escalado de características a través de la estandarización puede ser un paso muy importante para muchos algoritmos de Inteligencia Artificial. La normalización implica reescalar las características para obtener las propiedades de una distribución normal con una media de cero y una desviación estándar de uno.
+
+Para realizar el escalado se pueden emplear múltiples técnicas como:
+
+\begin{itemize}
+    \item \textit{StandardScaler}: Normaliza los datos eliminando la media y escalando los datos de forma que su varianza sea igual a 1.
+    \item \textit{RobustScaler}~[\cref{fig:scaler_data}]: Escala los datos de acuerdo al primer y tercer cuartil. 
+    \item \textit{PowerTransformer}: Aplica una transformación de potencia a cada característica para que los datos tengan una apariencia Gaussiana, estabilizando la varianza y minimizando la asimetría.
+\end{itemize}
+
+En este proyecto se escalaron los datos utilizando la técnica de \textit{RobustScaler}, ya que ofreció mejores resultados para tratar con los valores atípicos (\textit{outliers}).
+
+
+
+\cfig{images/analytics/sphx_glr_plot_all_scaling_005.png}{Ejemplo de escalado de datos}{fig:scaler_data}
+
+\section{Selección de algoritmos e hiperparámentros}
+\label{sec:ia:rf_selection}
+
+Existen diferentes algoritmos que nos permiten clasificar los datos en diferentes categorías. En este proyecto se realiza una clasificación binaria, es decir, se clasifica basándose en dos etiquetas, si el usuario es legítimo o no legítimo.
+
+\textit{Muli Layer Perceptron}~\cite{rosenblatt1960perceptron}, \textit{Support Vector Machines}~\cite{berwick2003idiot} y \textit{Random Forest}~\cite{Breiman2001} son técnicas que han demostrado un buen rendimiento en este tipo de problemas y es por ello que serán los utilizados para resolver el problema del proyecto.
+
+Para cada uno de los algoritmos seleccionados se procedió a realizar una búsqueda de los hiperparámentros. Estos valores permiten optimizar el ajuste del modelo a los datos con el fin de obtener unos resultados más precisos para el proceso de autenticación.
+
+La cantidad de parámetros y sus valores son distintos en función del algoritmo, por esto se utilizan dos técnicas de búsqueda:
+
+\begin{itemize}
+    \item \textbf{Grid Search:} Es una búsqueda exhaustiva de los mejores parámetros de una combinación dada.
+    \item \textbf{Random Search:} Es una búsqueda aleatoria sobre una combinación dada.
+\end{itemize}
+
+
+En este proyecto se ha usado la técnica de \textit{Grid Search} como la idónea debido al beneficio/rendimiento sobre ambos procedimientos~\cite{bergstra2012random}.   Para las técnicas de \textit{Multilayer Percetron} y \textit{Random Forest} se configuran una serie de parámetros que modifican su estructura interna. En el \textit{Multilayer Percetron} algunos de estos valores son el número de capas ocultas, número de neuronas por capa y la función de activación. Para \textit{Random Forest} algunos valores son la profundidad máxima del árbol, número de muestras mínimo por hoja  y número mínimo de muestras para crear una nueva hoja. En ambos casos, la modificación de estos parámetros afecta a la creación del algoritmo, decidiendo su estructura interna. Por el contrario, la técnica \textit{SVM} permite la configuración de parámetros que modifican la tolerancia de error. Estos valores son \textit{C}, que controla el margen de error, y \textit{gamma}, que modifica el comportamiento de la función \textit{kernel}. 
+
+La búsqueda de parámetros y posteriores pruebas se han realizado utilizando \textit{Cross Validation}~\cite{kohavi1995study,rao2008dangers} con cinco muestras. Esta técnica tiene un gran impacto a la hora de evitar el \textit{overfitting} debido a una distribución inteligente de los datos.
+
+Como se puede ver en la~\cref{fig:cv_procedure} este procedimiento divide el conjunto inicial de datos en \textit{n} subconjuntos. Esto permite que el entrenamiento que se realiza obtenga resultados más consistentes y reduciendo el \textit{overfitting}, con un coste mayor en tiempo.
+
+\cfig{images/ia/cv_procedure.png}{Funcionamiento de \textit{Cross Validation}}{fig:cv_procedure}
+
+Los parámetros obtenidos como los mejores para el problema a resolver se muestran en la~\cref{tab:best_hyperparams} y sus valores medios para las métricas \textit{recall} y \textit{precision} de cada algoritmo se muestran en la~\cref{tab:compare_clf} y la~\cref{fig:compare_clf}.
+
+Los datos muestran que los tres algoritmos se comportan muy bien a la hora de obtener una predicción, pero debido a la complejidad que podría suponer generar y agrupar tres modelos por usuario, se ha decidido seleccionar \textit{Random Forest} como el algoritmo para el proceso de autenticación final, ya que además de ofrecer un alto rendimiento, también se aprecia una mayor estabilidad a través de la desviación estándar obtenida.
+
+
+\begin{table}[htbp!]
+    \begin{tabular}{c c c c c }
+        \toprule
+        \multicolumn{5}{c}{\textbf{Multilayer Percetron}                 }                                                    \\ \midrule
+        \textit{alpha} & \textit{hidden\_layer\_sizes} & \textit{learning\_rate} & \textit{learning\_rate\_init} & \textit{max\_iter}     \\ \midrule
+        0.001                       & (30, 30, 30)                & \textit{adaptive}           & 0.01                 & 1000          \\ \bottomrule \bottomrule
+
+        \multicolumn{5}{c}{\textbf{Support Vector Machines}}                                                                  \\ \midrule
+        \multicolumn{2}{c}{\textit{C}}      & \multicolumn{2}{c}{\textit{gamma}}   & \textit{kernel}
+        \\ \bottomrule  \bottomrule
+        \multicolumn{2}{c}{1000000} & \multicolumn{2}{c}{0.00001} & \textit{rbf}
+        \\
+        \bottomrule
+
+        \multicolumn{5}{c}{\textbf{Random Forest}}                                                                            \\ \midrule
+
+       \textit{max\_depth} & \textit{max\_features} & \textit{min\_samples\_leaf} & \textit{min\_samples\_split} & \textit{n\_estimators} \\ \midrule
+
+        110                         & 3                           & 5                  & 12                   & 1000          \\ \bottomrule
+    \end{tabular}
+    \caption{Mejores hiperparámetros para cada algoritmo}
+    \label{tab:best_hyperparams}
+\end{table}
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{c c c }
+        \toprule
+        Algoritmo            & Métrica   & Media              \\
+        \midrule \midrule
+        \multirow{2}{*}{RF}  & \textit{precision} & 0.965 ($\pm$0.005) \\
+                             & \textit{recall}    & 0.965 ($\pm$0.005) \\ \midrule
+        \multirow{2}{*}{MLP} & \textit{precision} & 0.855 ($\pm$0.048) \\
+                             & \textit{recall}    & 0.849 ($\pm$0.052) \\ \midrule
+        \multirow{2}{*}{SVM} & \textit{precision} & 0.941 ($\pm$0.006) \\
+                             & \textit{recall}    & 0.941 ($\pm$0.006) \\
+        \bottomrule
+    \end{tabular}
+    \caption{Media de los resultados de los algoritmos}
+    \label{tab:compare_clf}
+\end{table}
+
+\cfig{images/analytics/compare_clf.png}{Media de resultados de los algoritmos con su desviación}{fig:compare_clf}
+
+
+

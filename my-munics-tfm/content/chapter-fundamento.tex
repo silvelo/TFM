@@ -1,0 +1,540 @@
+\chapter{Fundamentos teóricos}
+\label{sec:fundamentos}
+
+
+En este capítulo se presentarán las principales temáticas relacionadas con el dominio del proyecto, con el objetivo de comprenderlo mejor.
+
+\section{Seguridad Informática}
+La seguridad informática forma parte de un término más genérico como es la seguridad de la información, y tiene como objetivo prevenir y detectar el uso no autorizado de un sistema informático.
+
+\subsection{Conceptos previos}
+
+\begin{itemize}
+    \item \textbf{Atacante:} Sujeto o entidad que pone en riesgo un sistema.
+
+    \item \textbf{Ataque}: Consiste en cualquier acción hecha por individuos u organizaciones  que roban, alteran o destruyen a un blanco específico.
+          \begin{itemize}
+              \item \textbf{Ataque pasivo:} Son ataques difíciles de detectar, puesto que el atacante solo observa o monitoriza la información.
+
+              \item \textbf{Ataque activo:} Son aquellos que implican algún tipo de modificación de la información con el fin de dañar al objetivo.
+
+          \end{itemize}
+
+    \item \textbf{Intrusión:} Conjunto de acciones que intentan comprometer la integridad, confidencialidad o disponibilidad de un recurso. Es decir, la intrusión no solo consiste en el acceso no autorizado, sino también en la denegación del acceso a otros usuarios o la manipulación de la información.
+
+    \item \textbf{Vulnerabilidad~\cite{incibe_2017}:} Debilidad o fallo en un sistema de información que pone en riesgo la seguridad de la información, permitiendo que un atacante pueda comprometer la integridad, disponibilidad o confidencialidad de la misma.
+
+
+    \item \textbf{Amenaza~\cite{incibe_2017}:} Acción que aprovecha una vulnerabilidad para atentar contra la seguridad de un sistema de información. Es decir, que podría tener un potencial efecto negativo sobre algún elemento de nuestro sistema.
+
+    \item \textbf{Riesgo~\cite{incibe_2017}:} El riesgo es la probabilidad de que se produzca un incidente de seguridad, materializándose una amenaza y causando pérdidas o daños.
+
+    \item \textbf{Política de Seguridad~\cite{rediris_2002_security}}: Conjunto de requisitos definidos por los responsables de un sistema que indican en términos generales qué está y qué no está permitido en el área de la seguridad durante el uso del sistema.
+
+\end{itemize}
+
+
+
+\subsection{Objetivos de la seguridad informática}
+Los sistemas de información guardan, distribuyen o generan información para usuarios, empresas, procesos o aplicaciones, y esta información debe garantizar ciertas características para evitar fraudes. La seguridad informática intenta asegurar estas garantías sobre la información~\cite{rediris_2002_introduction}:
+
+\begin{itemize}
+    \item \textbf{Confidencialidad}: Es la capacidad de que solo los usuarios autorizados puedan acceder a nuestros recursos, datos e información. Este es uno de los principales problemas a los que se enfrentan las empresas.
+    \item \textbf{Integridad}: Es la capacidad de asegurar que los datos sean legítimos, es decir, asegurar que los datos recibidos sean los generados inicialmente y que nada, ni nadie ajeno pueda modificar dichos datos.
+    \item \textbf{Disponibilidad}: Esta característica es de las más importantes y asegura que los datos estén accesibles siempre que el usuario, proceso o sistema lo necesite.
+
+
+\end{itemize}
+
+
+\subsection{Autenticación de usuario}
+En el ámbito de la seguridad informática es muy importante demostrar que un usuario o una aplicación es realmente quien dicha persona o aplicación asegura ser. Para esta verificación se pueden usar varias técnicas~\cite{rediris_2002_auth}:
+
+\begin{enumerate}
+    \item \textbf{Sistemas basados en algo conocido}: Es el modelo de autenticación más básico y consiste en decidir si un usuario dice ser quien es simplemente basándonos en una prueba que a priori solo ese usuario puede saber. Esta aproximación es la más barata y también la más vulnerable a todo tipo de ataques. Las entidades que participan en la autenticación acuerdan una clave, que mantendrán en secreto. Cuando una de las partes necesita autenticarse solo tiene que mostrar la clave secreta que han acordado para poder acceder a los recursos.
+
+    \item \textbf{Sistemas basados en algo poseído}: Este modelo de autenticación es más complejo y se puede complementar con otros sistemas como el anterior de una manera fácil, pero también implica un mayor coste. Por lo general, este modelo se caracteriza por el uso de una tarjeta con un chip integrado el cual incorpora la información necesaria para la autenticación del usuario.
+          Este dispositivo fue patentado por \textbf{Roland Moreno} en 1970, y consistía en una tarjeta de plástico con un chip integrado. A día de hoy este tipo de tarjeta está presente en multitud de aplicaciones como tarjeta bancarias, tarjetas de acceso, etc.
+    \item \textbf{Sistemas de autenticación biométrica}: Hoy en día existen otros mecanismos que se basan en las cualidades del usuario.
+          Este tipo de sistemas basados en el reconocimiento de cualidades físicas del usuario, utilizan características únicas del individuo para su identificación. El proceso general para este tipo de sistemas es el siguiente:
+          \begin{enumerate}[label={\arabic*.}]
+              \item Capturar una muestra de los datos del usuario.
+              \item Extraer las características que sean únicas de ese usuario.
+              \item Comparar dichas características con las extraídas en un primer momento.
+              \item Basándonos en esa comparación se decide si el usuario es quien dice ser.
+          \end{enumerate}
+
+          Los sistemas de autenticación biométricos más comunes son:
+          \begin{itemize}
+              \item \textbf{Verificación de huella dactilar}: La huella de un ser humano es un rasgo de identificación único (salvo alguna excepción), pero los sistemas de autenticación miden ciertas características que se han demostrado únicas en los todos los individuos~\cite{mseg}.
+
+              \item \textbf{Verificación de patrones oculares}: Estos modelos de reconocimiento mediante patrones oculares, por lo general miden rasgos en el iris o en la retina. Han demostrado ser los más fiables con una probabilidad de coincidencia cercana a cero.
+
+          \end{itemize}
+
+          Otros sistemas de autenticación biométricos basados en el comportamiento humano, como el que se trata en este proyecto, son:
+
+          \begin{itemize}
+              \item \textbf{Reconocimiento de voz}: El reconocimiento de voz intenta detectar características típicas de la voz del usuario para identificarlo. La técnica aplicada para lograr este fin es similar a los sistemas de reconocimiento de canciones como \textit{shazam}~\cite{WangAvery}.
+
+
+              \item \textbf{Verificación de escritura}: Estos sistemas intentan verificar la firma manuscrita de una persona. En ella se verifican los patrones y características del trazo realizado.
+
+                    %   \item \textbf{Sistemas de reconocimiento de escritura por teclado}~\cite{daniel_garabato}: Este tipo de sistemas intenta caracterizar al usuario a partir de ciertos patrones que se producen cuando escribe con un teclado.
+
+                    %   \item \textbf{Sistemas de reconocimiento mediante el uso del ratón}~\cite{jorge_rodriguez}: Intentan caracterizar a los usuarios mediante el estudio de las curvas que se trazan cuando se realizan movimientos con el ratón
+
+          \end{itemize}
+
+
+
+\end{enumerate}
+
+
+
+\section{Características del uso del ratón}
+
+Los datos en bruto generados por un ratón~[\cref{tab:raw_inputs}] deben ser procesados para extraer aquellas características relevantes para el problema y que pueden ser tratadas adecuadamente por las técnicas de aprendizaje automático.
+
+Para este propósito se analizaron diferentes propuestas de la literatura que utilizan características de distinta naturaleza, principalmente basadas en propiedades del movimiento~\cite{sayed2013,zheng2011,gamboa2003} como velocidades, aceleraciones y variaciones de ángulo. En este proyecto, nos hemos centrado en las características basadas en el movimiento, ya que el objetivo es obtener un sistema de autenticación basado en el comportamiento. En consecuencia, hemos seleccionado como referencia las características de~\cite{gamboa2003} y  hemos incluido nuevas características que se derivan de estas aplicando las siguientes técnicas:
+\begin{itemize}
+    \item Valores absolutos: Obtenidos a partir de las características originales.
+    \item Descomposición en características básicas: Algunas características se descomponen en valores más primitivos, como la velocidad que se divide en horizontal y vertical.
+    \item Hemos decidido agrupar los eventos, tomando el primer evento como origen y calculando las características respecto a él.
+\end{itemize}
+
+La totalidad de las características extraídas son detalladas en la~\cref{tab:transform_inputs}.
+
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{ c  l }
+        \toprule
+        \textbf{Característica} & \textbf{Definición}                                    \\
+        \midrule \midrule
+        x                       & Posición del ratón en el eje horizontal de la pantalla \\
+        
+        y                       & Posición del ratón en el eje vertical de la pantalla   \\
+        
+        \textit{timestamp}               & Instante de tiempo del movimiento (formato UNIX)       \\
+        \bottomrule
+    \end{tabular}
+    \caption{\label{tab:raw_inputs}Valores de entrada de un movimiento}
+\end{table}
+
+
+
+
+\begin{xltabular}[c]{\linewidth}{ l c }
+    \toprule
+    \textbf{Característica} & \textbf{Definición}\\
+    \midrule \midrule
+    \textit{Horizontal Velocity} &  $ hv =  \frac{x_i - x_j}{t_i - t_j}$ \\ \midrule
+    \textit{Absolute Horizontal Velocity} & $ hv\_abs = |hv|$ \\ \midrule
+    \textit{Horizontal Velocity Left} &
+    $ hv_l =
+        \begin{cases}
+            hv\_abs, & \text{if}\ hv > 0 \\
+            0,       & \text{otherwise}
+        \end{cases}
+    $ \\ \midrule
+    \textit{Horizontal Velocity Right} &
+    $ hv_r =
+        \begin{cases}
+            hv\_abs, & \text{if}\ hv < 0 \\
+            0,       & \text{otherwise}
+        \end{cases}
+    $ \\ \midrule
+    \textit{Vertical Velocity} &  $ vv = \frac{x_i - x_j}{t_i - t_j}$\\ \midrule
+    \textit{Absolute Vertical Velocity} & $ vv\_abs = |vv|$ \\ \midrule
+    \textit{Vertical Velocity Left} &
+    $ vv_l =
+        \begin{cases}
+            vv\_abs, & \text{if}\ vv > 0 \\
+            0,       & \text{otherwise}
+        \end{cases}
+    $ \\ \midrule
+    \textit{Vertical Velocity Right} &
+    $ vv_l =
+        \begin{cases}
+            vv\_abs, & \text{if}\ vv < 0 \\
+            0,       & \text{otherwise}
+        \end{cases}
+    $ \\ \midrule
+    \textit{Tangencial Velocity} & $ tv = \sqrt{hv^2 + vv^2}$ \\ \midrule
+    \textit{Tangencial Acceleration} & $ ta = \frac{tv_i - tv_j}{t_i - t_j} $ \\ \midrule
+    \textit{Absolute Tangencial Acceleration} & $ ta\_abs = |ta| $ \\ \midrule
+    \textit{Tangencial Jerk} & $ tj = \frac{ta_i - ta_j}{t_i - t_j} $ \\ \midrule
+    \textit{Absolute Tangencial Jerk} & $ tj\_abs = |tj| $ \\ \midrule
+    \textit{Tangencial Jerk Left} &
+    $ tj_l =
+        \begin{cases}
+            tj\_abs, & \text{if}\ tj > 0 \\
+            0,       & \text{otherwise}
+        \end{cases}
+    $ \\ \midrule
+    \textit{Tangencial Jerk Right} &
+    $ tj_r =
+        \begin{cases}
+            tj\_abs, & \text{if}\ tj < 0 \\
+            0,       & \text{otherwise}
+        \end{cases}
+    $ \\ \midrule
+    \textit{Origin Distance} & $ d_o = \sqrt{x^2 + y^2}$  \\ \midrule
+    \textit{Distance} & $ d = \sqrt{(x_i - x_y)^2 + (y_i - y_j)^2} $ \\ \midrule
+    \textit{Slope Angle Tangent} & $ts\_angle = \atan2(y,x)$ \\ \midrule
+    \textit{Origin Slope Angle Tangent} & $ts\_{origin\_angle} = \atan2(y_i - y_o, x_i -x_o)$ \\ \midrule
+    \textit{Curvature} & $c = \frac{ts\_angle_i - ts\_angle_j}{t_i - t_j} $ \\ \midrule
+    \textit{Absolute Curvature} & $c\_abs = |c| $ \\ \midrule
+    \textit{Curvature Rate} &  $cr = \frac{c_i - c_j}{d_j - d_i}$ \\ \midrule
+    \textit{Absolute Curvature Rate} &  $ cr\_abs = |cr|$ \\ \midrule
+    \textit{Origin Curvature} &
+    $ c\_origin =
+        \frac{ts\_origin\_angle_o - ts\_origin\_angle_j}
+        {t_o - t_j}$ \\ \midrule
+    \textit{Absolute Origin Curvature} &  $ c\_origin\_abs = |c\_origin|$ \\ \midrule
+    \textit{Origin Curvature Rate} &  $ cr\_origin = \frac{c_o - c_j}{t_o - t_j}$ \\ \midrule
+    \textit{Absolute Origin Curvature Rate} & $ cr\_origin\_abs = |cr\_origin| $ \\ \midrule
+    \multicolumn{2}{p{11cm}}{\footnotesize donde $x$ es la posición del ratón, $t$ es el \textit{timestamp} del evento, $o$ es el registro origen, $i$ es el registro actual y $j$ el registro anterior.} \\
+    \bottomrule
+    \caption{\label{tab:transform_inputs}Lista de características transformadas}
+\end{xltabular}
+
+
+\section{Evaluación del rendimiento}
+\label{sec:metrics}
+
+Para analizar los resultados obtenidos y comprobar la fiabilidad de los algoritmos usados, necesitamos emplear unas métricas que evalúen su rendimiento y permitan comparar diferentes aproximaciones.
+
+
+El conjunto de datos utilizados para la evaluación del rendimiento consistirá en un \textit{dataset} con los datos distribuidos en dos grupos, los datos del usuario legítimo, que son los eventos obtenidos de la sesión de ese usuario, frente a los datos del usuario ilegítimo, que son los eventos capturados de otros usuarios. La distribución de este conjunto se realizará en una proporción 1:1.
+
+Para evaluar el rendimiento de los algoritmos se empleará la matriz de confusión~[\cref{fig:matrix_conf}], la cual categoriza los datos en cuatro grupos:    
+
+
+\begin{itemize}
+    \item \textbf{Verdaderos Negativos (TN)}: Es la cantidad de eventos de usuarios no legítimos que fueron clasificados correctamente.
+
+    \item \textbf{Falsos Positivos (FP)}: Es la cantidad de eventos de usuarios no legítimos que fueron clasificados incorrectamente como legítimos.
+
+    \item \textbf{Falsos Negativos (FN)}: Es la cantidad de eventos del usuario legítimo que fueron clasificados incorrectamente como no legítimos.
+
+    \item \textbf{Verdaderos Positivos (TP)}: Es la cantidad de eventos del usuario legítimo que fueron clasificados correctamente.
+\end{itemize}
+
+
+\cfig[0.6\linewidth]{images/fundamentos/matriz_confusion.png}{Esquema matriz de confusión.}{fig:matrix_conf}
+
+A partir de los datos obtenidos de una matriz de confusión, se pueden calcular medidas que permiten obtener una representación analítica de los resultados. Por otra parte, durante el entrenamiento de los algoritmos también se han calculado los tiempos de cómputo.
+
+\begin{itemize}
+    \label{list:scores}
+    \item\textbf{Recall (RC)}: Es la relación entre las predicciones positivas correctas y el total de observaciones positivas.
+    \begin{equation}
+        \frac{TP}{TP + FN}
+    \end{equation}
+
+    \item \textbf{Precision (PS)}: Es la relación entre las predicciones positivas correctas y el total de predicciones positivas.
+          \begin{equation}
+              \frac{TP}{TP  + FP}
+          \end{equation}
+
+    \item \textbf{F1}: Es la media armónica de los valores anteriores.
+          \begin{equation}
+              \frac{2}{\frac{1}{precision} + \frac{1}{recall}} = 2 * \frac{precision *
+                  recall}{precision + recall} = \frac{TP}{TP + \frac{FN + FP}{2}}
+          \end{equation}
+
+    \item \textbf{Accuracy}: Es la relación entre las predicciones positivas y el total de casos.
+          \begin{equation}
+              \frac{TP}{TP + FP + FN + TN}
+          \end{equation}
+\end{itemize}
+
+A partir de los datos de la matriz de confusión y un umbral (\textit{threshold}) es posible calcular ciertos ratios que permiten parametrizar de una manera más objetiva el rendimiento del algoritmo. Estos ratios son los definidos a continuación:
+
+\begin{itemize}
+          \item \textbf{Threshold:} Es un valor que se elige para considerar si el modelo de predicción es correcto o no. Este valor indica el grado de sensibilidad para rechazar casos falsos positivos y casos de falsos negativos.
+
+          \item \textbf{False Acceptance Rate (FAR)~[\cref{fig:frr_far_chart}]:} Representa el ratio de casos en el que un usuario no legítimo es clasificado como legítimo. En el \textit{threshold} 0, la probabilidad de esta identificación es del 100\% e irá disminuyendo cuando se baja el \textit{threshold}.
+          \begin{equation}
+              \frac{FP}{FP+TN}
+          \end{equation}
+
+          \item \textbf{False Reject Rate (FRR)~[\cref{fig:frr_far_chart}]:} Representa el ratio de casos en el que un usuario legítimo es clasificado como no legítimo. En el \textit{threshold} 0, el usuario legítimo será identificado correctamente el 100\% de los casos e irá disminuyendo cuando se baja el \textit{threshold}.
+          \begin{equation}
+              \frac{FN}{FN+TP}
+          \end{equation}
+          
+          \item \textbf{Equal Error Rate (EER)~[\cref{fig:frr_far_chart}]:} Representa el punto óptimo de \textit{threshold} donde las curvas de \textit{FRR} y \textit{FAR} se cortan, este valor suele ser mejor cuanto más cercano a cero se encuentre.
+              \begin{equation}
+                  \frac{FAR + FRR}{2}
+              \end{equation}
+
+\end{itemize}
+
+\cfig{images/fundamentos/FAR-FRR-EER-Biometrics-schema.png}{Relación de EER con FAR y FRR}{fig:frr_far_chart}
+
+\section{Inteligencia Artificial}
+
+En 1956, \textbf{John McCarthy}~\cite{mccarthy2007artificial}, conocido como el padre de la Inteligencia Artificial, acuñó el término Inteligencia Artificial, en adelante \textit{IA}, como la ciencia y la ingeniería de hacer máquinas inteligentes, especialmente programas informáticos inteligentes.
+
+En la \textit{IA} existen dos grupos definidos, fuerte y débil. La  \textit{IA} fuerte es aquella que tiene las mismas características que un humano inteligente. La \textit{IA} débil es aquella que muestra inteligencia en un área en concreto, pero carece de la misma en otras.
+
+Para conseguir dotar de inteligencia a una máquina se suele utilizar el aprendizaje máquina o \textit{machine learning}. El aprendizaje máquina, en adelante \textit{ML}, es una de las áreas más extendidas de la \textit{IA}. En 1959, \textbf{Arthur Samuel} definió \textit{ML} como el campo de estudio que brinda a las computadoras la capacidad de aprender sin estar programado explícitamente.
+
+\subsection{Tipo de aprendizaje}
+
+Dentro del \textit{ML} se pueden distinguir dos tipos de aprendizaje:
+
+\begin{itemize}
+    \item \textbf{Aprendizaje supervisado}: Los algoritmos son entrenados basándose en un conjunto de datos de los que conocemos su respuesta correcta. De esta manera lo que se intenta es que el algoritmo obtenga una respuesta aceptable a partir de las características disponibles.
+
+          \begin{itemize}
+              \item \textbf{Problemas de regresión}: Son usados para evaluar las relaciones que existen entre las variables y obtener un valor de esa estimación.
+              \item \textbf{Problemas de clasificación}: Son utilizados para dividir un conjunto de datos de entrada en distintas clases según sus características.
+          \end{itemize}
+
+    \item \textbf{Aprendizaje no supervisado}: En este modelo, los datos no contienen una respuesta correcta. Este tipo de aprendizaje intenta buscar ciertos patrones para obtener una respuesta aceptable.
+\end{itemize}
+
+La finalidad de todos estos tipos de aprendizajes es la de generalizar, es decir, que puedan resolver problemas que no han visto previamente.
+Cuando entrenamos modelos computacionales con un conjunto de datos de entrada estamos haciendo que el algoritmo sea capaz de generalizar un concepto para que al consultarle por un nuevo conjunto de datos desconocido, este sea capaz de comprenderlo y proporcionarnos un resultado fiable~[\cref{fig:over-under-fitting}].
+
+Si nuestros datos de entrenamiento son muy pocos o poco representativos nuestra máquina no será capaz de generalizar el conocimiento y estará incurriendo en \textit{underfitting}~[\cref{fig:over-under-fitting}].
+
+Si sobreentrenamos (\textit{overfitting}) nuestro modelo lo que ocurrirá es que nuestra máquina solo se limitará a memorizar los casos particulares que le enseñamos y será incapaz de reconocer nuevos datos de entrada, perdiendo toda capacidad de generalización.
+
+\cfig{images/fundamentos/overfitting.png}{Problemas de entrenamiento}{fig:over-under-fitting}
+
+
+\subsection{Redes Neuronales Artificiales}
+Las redes neuronales artificiales~\cite{salas2004redes}, en adelante \textit{RNA}, son un modelo computacional inspirado en la estructura del sistema nervioso de los seres humanos. La unidad elemental de una \textit{RNA} es la neurona artificial [\cref{fig:neurona}] y generalmente están organizadas en capas. Poseen una capa de entrada con \textit{n} entradas y una capa de salida con \textit{m} salidas, que se calcula normalmente realizando una suma ponderada de las entradas con sus pesos~[\cref{eq:perceptron}].
+
+
+\begin{equation} \label{eq:perceptron}
+    \displaystyle\sum_{i=1}^{n} w_i x_i + w_0=
+    \begin{cases}
+        \geq 0 & \quad y = 1 \\
+        <    0 & \quad y = 0
+    \end{cases}
+\end{equation}
+
+, donde $x_i$ son las entradas, $w_i$ es el peso de cada entrada y $w_0$ es el valor de \textit{bias}.
+
+
+
+Este resultado es modificado por una función de activación y el valor obtenido se transmite directamente al siguiente elemento. Normalmente para conseguir esta transformación se emplean las funciones comentadas en la~\cref{tab:functions_mlp}.
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        \textbf{Función} & \textbf{Ecuación}\\ \midrule
+        Sigmoidal       &  $f(x) = \frac{1}{1 + e^{-x}}$ \\ \midrule
+        Tangente hiperbólica       & $f(x) = tanh(x)$ \\ \midrule
+        Gaussiana       & $ f(x) = e^{\frac{-x^2}{2}}$  \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Funciones de activación}
+    \label{tab:functions_mlp}
+\end{table}
+
+
+\cfig{images/fundamentos/neurona.jpg}{Esquema de una neurona artificial}{fig:neurona}
+
+\subsubsection{Perceptrón Multicapa}
+\label{sec:mlp}
+
+En 1958, \textbf{Rosenblatt}~\cite{rosenblatt1960perceptron} diseñó y desarrollo el perceptrón. Este modelo implementa el funcionamiento de una sola neurona que es capaz de resolver problemas lineales. En 1969, \textbf{Minsky y Papert} escribieron un libro~\cite{minsky2017perceptrons} donde demostraron que un solo perceptrón era incapaz de aprender la función exclusiva (XOR), es decir, problemas cuya resolución no es lineal. En este mismo libro se expone un nuevo paradigma de \textit{RNA} llamado perceptrón multicapa  también conocido como \textit{MLP} por sus siglas en inglés (\textit{Multi-Layer Perceptron}). Este modelo es una combinación de varios perceptrón, que permiten aproximar cualquier problema, aunque no sea lineal. Este se caracteriza por tener sus neuronas agrupadas en capas de diferentes niveles, por lo general tres~[\cref{fig:schematic_MLP}].
+
+\begin{itemize}
+    \item \textbf{Capa de entrada:} Esta capa conecta la red con el exterior, cada neurona se corresponde con cada una de las variables de entrada a la red.
+
+    \item \textbf{Capas ocultas:} Es un conjunto de capas que cuyas entradas son las salidas de la capa anterior y cuya salida pasan a la capa sucesora.
+
+    \item \textbf{Capa de salida:} Conecta las capas ocultas con la salida de la red que proporciona los resultados.
+\end{itemize}
+
+Además, sus conexiones están dirigidas hacia adelante, es decir, las neuronas de una capa se conectan con las neuronas de la siguiente capa y generalmente todas las neuronas de una capa se encuentran enlazadas con las de la siguiente capa.
+
+\cfig{images/fundamentos/schematic_mlp.png}{Esquema del MLP}{fig:schematic_MLP}
+
+
+Inicialmente, este planteamiento no se pudo materializar porque no existía un mecanismo que ajustase automáticamente los pesos de la capa oculta. En 1986, \textbf{Rummelhart, Hinton y Wiliams} desarrollan la \textit{Regla Delta Generalizada}~\cite{rumelhart1988learning} para adaptar los pesos propagando los errores hacia atrás. De esta manera se demuestra que el \textit{MLP} es capaz de resolver problemas lineales y no lineales.
+
+En la \cref{fig:MLP_example} se puede ver el funcionamiento del \textit{MLP}. En ella se muestra el esquema de un \textit{MLP} que contiene una capa de entrada, dos capas ocultas y la salida.
+Cada neurona está representada visualmente con una gráfica que muestra la función aplicada a los datos, por ejemplo, en la capa de entrada, las variables de entrada son dos funciones que dividen los datos en vertical~($X_1$) y horizontal~($X_2$). También se pueden observar las distintas conexiones que existen entre las neuronas e incluso el peso de las conexiones representadas por un color y grosor diferentes.
+
+\cfig{images/fundamentos/MLP_example.png}{Ejemplo de una MLP}{fig:MLP_example}
+
+Este tipo de arquitectura es muy utilizada debido a su capacidad de aproximación universal. No obstante, necesitan un largo proceso de aprendizaje para problemas complejos que requieren de un gran número de variables y una arquitectura compleja.
+
+
+% ======================================================== %
+
+% ======================================================== %
+
+\subsection[Máquinas de soporte vectorial]{Máquinas de soporte vectorial~\cite{berwick2003idiot}}
+\label{sec:svm}
+Las máquinas de soporte vectorial también conocidas como \textit{SVM} de sus siglas en inglés (\textit{Support Vector Machines}), es un conjunto de algoritmos desarrollados por \textbf{Vladimir Vapnik}, capaces de realizar clasificaciones, regresiones e incluso detectar valores atípicos.
+
+
+Las \textit{SVM} generan un hiperplano\footnote{Es un plano de una dimensión inferior al origen, que divide el espacio en dos mitades} para intentar clasificar los datos [\cref{fig:svm_example}]. En dicho hiperplano se forma una \textit{calle} para separar los datos, donde la línea continua separa el conjunto y las líneas discontinuas indican el margen de error. Las \textit{SVM} intentan maximizar el margen de error, lo que ocasiona una \textit{calle} más grande y por lo tanto generalizará mejor el problema.
+
+\cfig{images/fundamentos/svm_exmaple.png}{Ejemplo de Clasificación SVM}{fig:svm_example}
+
+
+\subsubsection{Tipos de problemas}
+
+El conjunto de datos utilizados por estos algoritmos suelen ser multidimensionales, por lo tanto, en ciertas ocasiones puede ser complicado separar los datos. Basándose en esto podemos encontrarnos con dos tipos de escenarios:
+
+\begin{itemize}
+    \item \textbf{Lineales~[\cref{fig:svm_example}]:} La solución de este tipo de problemas genera un hiperplano que es capaz de separar el conjunto de datos perfectamente.
+
+    \item \textbf{No lineales:} Son aquellos en los que el conjunto de entrada no es posible separarlos con un hiperplano, pero el hecho de que no sean separables en el espacio original, no significa que no lo sean en un espacio de dimensiones distinto. Para transformar el espacio de entradas a una dimensión diferente se emplean las funciones\textit{kernel}comentadas en la~\cref{tab:kernel_functions}.
+    
+\end{itemize}
+
+\cfig{images/fundamentos/svm_exmaple_clf.png}{Ejemplo de Clasificación SVM no lineal, usando función Gaussiana}{fig:kernel_clf}
+
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{l l}
+        \toprule
+        Lineal &  $ K(x,y) =  x y + c $  \\
+        \multicolumn{2}{l}{\footnotesize donde $c$ es una constante.}\\  \midrule
+        Polinómica       &  $K(x,y) = (a + xy)^d$ \\
+        \multicolumn{2}{l}{\footnotesize donde $d$ es el orden del polinomio y $a$ es una constante.} \\ \midrule
+        Función de base radial Gaussiana~[\cref{fig:kernel_clf}] & $K(x,y)=exp(- \frac{||x-y||^2}{2\sigma^2})$ \\
+        \multicolumn{2}{l}{\footnotesize donde $\sigma$ es la anchura del\textit{kernel}y $||x-y||$ es la distancia Euclídea entre $x$ e $y$} \\
+        \midrule
+        Función sigmoide       & $ K(x,y)=tanh(\alpha x y+ c) $  \\
+        \multicolumn{2}{l}{\footnotesize donde $\alpha$ es la pendiente y $c$ es una constante.} \\         
+        \bottomrule
+    \end{tabular}
+    \caption{Funciones \textit{kernel}}
+    \label{tab:kernel_functions}
+\end{table}
+
+\subsection[Árboles de Decisión]{Árboles de Decisión~\cite{breiman2017classification}}
+\label{sec:decision_tree}
+Generan modelos de clasificación o regresión usando árboles como estructuras internas~[\cref{fig:decisiontree}]. En dicha estructura cada nodo representa una característica del problema, cada rama representa una decisión de esa característica y los nodos hoja contienen el valor de la predicción o clase.
+
+
+\cfig{images/fundamentos/decision_tree.png}{Ejemplo de árbol de decisión para conceder un préstamo}{fig:decisiontree}
+
+\subsection[Métodos Ensambladores]{Métodos Ensambladores~\cite{breiman1999pasting, breiman1996bagging,louppe2012ensembles}}
+Los métodos de tipo ensamblador están formados por un grupo de modelos predictivos que permiten alcanzar una mejor precisión y estabilidad del modelo. Estos utilizan diferentes técnicas para mejorar los resultados de un algoritmo, ya sea combinándolo con otros o utilizando varias instancias del mismo.
+
+Algunas de estas técnicas son \textit{Stacking}, \textit{Bagging} y \textit{Boosting}. Estas dos últimas utilizan \textit{Bootstrapping} como método de muestreo de datos.
+
+\subsubsection{Bootstrapping}
+Es una técnica de muestreo. De las \textit{n} muestras disponibles, se escogen \textit{k} con reemplazo. Luego ejecutamos nuestros algoritmos utilizando esas muestras. Se utiliza el remplazo para asegurar que las muestras sean aleatorias. Si se realizase sin remplazo, las muestras extraídas dependerán de las anteriores.
+
+\cfig{images/fundamentos/Bootstrapping.png}{Ejemplo de Bootstrapping}{fig:bootstrapping}
+
+\subsubsection[Bagging]{Bagging~\cite{breiman1996bagging}}
+
+Este método genera  múltiples instancias de un mismo modelo predictivo para conseguir una mejora en la precisión de la predicción. Generalmente esta técnica puede ser usada para reducir una alta varianza.
+
+
+\subsubsection{Boosting}
+Esta técnica emplea un conjunto de algoritmos que utilizan promedios ponderados para convertir aprendizajes débiles en fuertes. Cada modelo ejecutado dicta en que características se centrará el siguiente modelo.
+
+\cfig{images/fundamentos/boosting.png}{Ejemplo de Boosting}{fig:bossting}
+
+
+\subsubsection{Stacking}
+Esta técnica combina múltiples modelos de clasificación o regresión. Los modelos son entrenados individualmente utilizando un conjunto de entrenamiento y sus resultados son combinados para obtener una predicción final.
+
+\subsection[Bosques Aleatorios]{Bosques Aleatorios~\cite{Breiman2001}}
+\label{sec:random_forest}
+Los bosques aleatorios también conocidos como \textit{Random Forest}, fueron desarrollados por \textbf{Leo Breiman} y \textbf{Adele Cutler}. Este algoritmo utiliza la técnica de \textit{Bagging} para realizar las predicciones.
+
+Son un conjunto de árboles de decisión en el que cada árbol depende de los valores de un vector aleatorio probado independientemente y con la misma distribución para cada uno de los árboles del bosque [\cref{fig:schematic_RandomForest}].
+
+
+\subsubsection{Ventajas}
+
+Las ventajas de los \textit{Random Forest} son:
+
+\begin{itemize}
+    \item Es uno de los algoritmos de aprendizaje más fiables.
+    \item Funciona bien con conjunto de datos muy grandes.
+    \item Puede manejar cientos de variables de entrada.
+    \item Guarda la información sobre las variables más importantes.
+\end{itemize}
+
+\subsubsection{Desventajas}
+
+\begin{itemize}
+    \item No funcionan bien cuando hay variables categóricas.
+    \item Puede sobreajustar en ciertos grupos de datos con mucho ruido.
+\end{itemize}
+
+\cfig{images/fundamentos/random_forest.png}{Ejemplo de Random Forest}{fig:schematic_RandomForest}
+
+% ======================================================== %
+
+% ======================================================== %
+
+
+\subsection[Clasificador por Votación]{Clasificador por Votación~\cite{ruta2005classifier}}
+\label{sec:voting_clf}
+
+La clasificación por votación es un meta-clasificador, es decir, no implementa un algoritmo de clasificación sino que evalúa las predicciones de otros algoritmos para obtener una nueva [\cref{fig:schematic_Voting}]. Este algoritmo se basa en la técnica de \textit{Stacking} para obtener las predicciones.
+
+\subsubsection{Tipos de votación}
+
+\begin{itemize}
+    \item \textbf{Votación Dura/Mayoritaria:} Es un caso de selección por mayoría simple. La predicción se hace basándose en el mayor número de votos por parte de los algoritmos utilizados.
+
+    \item \textbf{Votación Blanda:} Esta técnica calcula el mejor resultado obteniendo la media de las probabilidades calculadas por los algoritmos individualmente.
+\end{itemize}
+
+\subsubsection{Ventajas}
+
+\begin{itemize}
+    \item Por norma general suelen proporcionar mejores resultados, si se rigen por ciertas condiciones, como que los clasificadores sean totalmente independientes~\cite{ruta2005classifier}.
+\end{itemize}
+
+\subsubsection{Desventajas}
+
+\begin{itemize}
+    \item No todos los algoritmos son válidos para esta técnica, especialmente cuando se usa el método de votación blanda, ya que no todos los algoritmos estiman las probabilidades de las salidas.
+\end{itemize}
+
+\cfig{images/fundamentos/schema_voting.png}{Esquema clasificación por votación}{fig:schematic_Voting}
+
+\section{Sistemas de gestión de colas}
+
+
+En 1999, \textbf{Andy Stanford-Clark} y \textbf{Arlen Nipper} inventaron el protocolo \textit{Message Queueing Telemetry Transport} (\textit{MQTT}~\cite{frey2005sensor}). Ellos necesitan un protocolo con el mínimo consumo de batería y ancho de bando posible para enviar la información del estado de las tuberías de petróleo. 
+
+El desarrollo del protocolo permaneció bajo licencia de IBM hasta el 2010, donde fue liberado como proyecto de código abierto, y en 2014, fue oficialmente aprobado por la organización OASIS como un estándar.
+
+El protocolo fue definido con un patrón de publicación/suscripción e incorpora una serie de elementos que son comunes en todas sus implementaciones:
+
+\begin{itemize}
+    \item \textbf{Topic:} Es una cola sobre un tema particular, identificada por un nombre.
+    \item \textbf{Particiones:} División de un \textit{topic} en múltiples colas, que permite un mayor rendimiento.
+    \item \textbf{Mensaje:} Es cada elemento que se almacena en un \textit{topic}.
+    \item \textbf{Broker:} En un nodo identificado por un ID dentro de un \textit{clúster}, actúa como servidor permitiendo replicar y balancear el \textit{clúster}, para que sea escalable y tolerante a fallos.
+    \item \textbf{Productor:} Agente que permite a una aplicación la capacidad de publicar mensajes en una cola.
+    \item \textbf{Consumidor:} Agente que permite a una aplicación la capacidad de suscribirse a una cola para consumir los mensajes.
+\end{itemize}
+
+\cfig{images/fundamentos/cola_esquema.png}{Esquema de gestión de colas}{fig:kafka_schema}
+
+Debido a las ventajas de este protocolo se utiliza mucho en dispositivos \textit{Internet of Things} (IoT) y muchas empresas han implementado su propio software basando en este protocolo, una de las más destacadas es la implementación de \textit{Eclipse Mosquitto}~\cite{hillar2017mqtt}.
+
+
+En 2003, \textbf{John O'Hara} (J.P. Morgan) creó el \textit{Advance Message Queue Protocol} (\textit{AMQP})~\cite{AMQP, AMQP_IEEE}. Durante los siguientes años se fueron incorporando empresas para continuar el desarrollo y la documentación del protocolo.
+
+La versión \textit{1.0}  de \textit{AMQP} fue lanzado en 2011, en una conferencia en Nueva York. En 2014 fue aprobada y recibió la designación como ISO/IEC 19464. La implementación sigue la misma estructura que la de \textit{MQTT} y su principal diferencia es que \textit{AMQP} sigue el patrón de cliente/servidor. El software más popular que implementa dicho protocolo es \textit{RabbitMQ}~\cite{AMQP, AMQP_IEEE}. Este software inicialmente implementaba solo el soporte de \textit{AMQP}, pero que con el paso de los años también han dado soporte a \textit{MQTT}.
+
+En 2010, el equipo de LinkedIn desarrollo \textit{Kafka}~\cite{kreps2011kafka} para poder procesar la gran cantidad de mensajes que se enviaban dentro de la plataforma. El equipo de trabajo tuvo en mente utilizar los protocolos \textit{MQTT} y \textit{AMQP}, pero estos protocolos no estaban pensados para realizar un procesamiento de estos mensajes y esto era algo crítico para LinkedIn.
+
+En 2011, LinkedIn reportó que su sistema de gestión de colas soportaba el procesamiento de mil millones de mensajes al día. Actualmente el desarrollo de \textit{Kafka} es mantenido por la \textit{Apache Foundation}.

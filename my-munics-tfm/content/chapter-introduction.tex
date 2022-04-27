@@ -1,0 +1,71 @@
+\chapter{Introducción}
+\label{sec:intro}
+
+En este capítulo se expondrá una visión generalizada del proyecto, abordando la idea original del mismo, cómo surge y qué objetivos se pretenden conseguir con la realización de este.
+
+\section{Motivación}
+\label{sec:intro:motivacion}
+
+Desde los inicios de la informática, la ciberseguridad~\cite{8906, stallings2012computer} ha sido una de las áreas de estudio que mayor interés ha despertado y, hoy en día, ha adquirido una especial relevancia en la vida cotidiana de los usuarios en prácticamente cualquier ámbito~\cite{EurostatComputerEmployees, EurostatComputerIndivual}, debido a la enorme proliferación de diferentes tipos de dispositivos, tales como ordenadores personales, tabletas o teléfonos inteligentes (smartphones), así como el uso habitual de diferentes plataformas y aplicaciones informáticas, como pueden ser productos de ofimática tradicionales, redes sociales, aplicaciones bancarias o plataformas de salud en línea. Actualmente, la ciberseguridad ha tomado una especial relevancia debido al creciente aumento de ataques informáticos a diferentes infraestructuras y plataformas, llegando a generar una gran preocupación no solo para las empresas responsables de dichos servicios, sino también para el usuario final de tales herramientas.
+
+La seguridad informática abarca una gran variedad de técnicas y métodos para tratar de dotar a los sistemas de información de una cierta protección ante posibles ataques, incluyendo los sistemas físicos, los sistemas software o servicios, así como también la información almacenada en ellos. Entre estos mecanismos, se encuentran los sistemas de autenticación, un componente esencial en cualquier modelo de seguridad que actúa como un primer elemento de defensa de los sistemas de información mediante la verificación de la identidad de los usuarios. De este modo, una vez comprobada la identidad los sistemas de control de acceso podrán otorgar los permisos pertinentes a un usuario legítimo o bien denegar el acceso al sistema a un usuario ilegítimo, registrando y notificando dicha incidencia a los administradores del sistema.
+
+Para llevar a cabo el proceso de autenticación, se emplean dos fases: en primer lugar, el usuario debe proporcionar una identificación para que, en un segundo paso, el sistema pueda llevar a cabo una comprobación para determinar si existe una correspondencia entre dicha identificación y la identidad del usuario. Actualmente existen diferentes maneras de realizar este procedimiento, en función del factor que se utilice para completarlo~\cite{barkadehi2018authentication}:
+
+\begin{itemize}
+    \item El esquema de autenticación más habitual está basado en un factor de conocimiento por parte del usuario y consiste en el uso de una determinada información que, teóricamente, solo deberían conocer el usuario legítimo y el sistema de autenticación, como pueden ser el uso de pares usuario/contraseña o números de identificación personal (PIN).
+    \item Otro de los esquemas ampliamente utilizados, especialmente para llevar a cabo el control de acceso a edificios o áreas, es el factor de posesión, donde el usuario presenta al sistema autenticador un objeto o token para llevar a cabo la verificación de identidad. El uso de documentos acreditativos de identidad como el DNI o incluso las tarjetas bancarias son claros ejemplos de este tipo de sistemas, así como también podrían serlo el uso de tarjetas inteligentes de propósito específico o incluso la utilización de dispositivos móviles.
+    \item Durante los últimos años también se han convertido en sistemas de autenticación habituales aquellos basados en factores biométricos, es decir, los que emplean ciertas propiedades inherentes a los usuarios que, además, son invariables en el tiempo para llevar a cabo la comprobación de la identidad, tales como la huella dactilar, el iris o incluso sistemas de reconocimiento facial~\cite{samangouei2017facial}.
+    \item Uno de los sistemas más novedosos que está tomando cada vez una mayor relevancia se basa en realizar el proceso de autenticación apoyándose en la ubicación del usuario, empleando desde las direcciones MAC e IP del equipo utilizado, hasta el posicionamiento GPS a partir de la geolocalización de un dispositivo móvil~\cite{zhang2012location}.
+    \item Otro tipo de sistemas que está tomando cada vez una mayor relevancia son los basados en factores de comportamiento biométrico~\cite{ahmed2005anomaly}, donde la verificación de la identidad de los usuarios se lleva a cabo a través de la monitorización de la interacción entre el propio usuario y el sistema, como por ejemplo el tipo de aplicación utilizada, los sitios Web frecuentados, la manera de teclear o incluso la utilización del ratón~\cite{bhatnagar2013survey,gamboa2003}.
+\end{itemize}
+
+A lo largo de los últimos años, los sistemas de autenticación han buscado reforzar el proceso añadiendo pasos complementarios en el proceso, requiriendo la presencia de múltiples factores para autenticar al usuario. Un claro ejemplo de este tipo de procedimientos son los sistemas de verificación en dos pasos [12], ampliamente extendidos hoy en día, donde se lleva a cabo una autenticación mediante un factor primario, habitualmente basado en un esquema usuario/contraseña, solicitando posteriormente al usuario un código de confirmación enviado a su dispositivo móvil, bien sea un SMS o a través de una aplicación específica.
+
+Mediante la utilización de los métodos anteriormente señalados, es importante resaltar que la identidad del usuario solamente se verifica en el momento inicial y, por tanto, podría darse una usurpación de una sesión abierta. Ante este tipo de circunstancias, empleando mecanismos de autenticación convencionales únicamente sería posible prevenir este tipo de situaciones mediante la repetición periódica de todo el proceso de autenticación, lo que dificultaría la experiencia del usuario al tratarse generalmente de procesos invasivos que interrumpirían la sesión. Por tanto, para llevar a cabo este proceso de forma transparente al usuario será necesario recurrir a factores de autenticación no invasivos, un perfil en el que encajan perfectamente los factores basados en el comportamiento del usuario. De este modo, sería posible monitorizar la actividad del usuario de forma constante, completando el proceso de autenticación de forma continuada y permitiendo la detección de posibles suplantaciones de identidad [13].
+
+El trabajo que se ha realizado en este proyecto se centra precisamente en estos sistemas de autenticación de segunda fase basados en el comportamiento del usuario frente al dispositivo que emplea, en este caso orientado a explotar la interacción mediante un dispositivo convencional, como es el ratón. Para ello, el usuario debe completar el proceso de autenticación inicial para la apertura de sesión mediante un factor primario (usuario/contraseña) y, posteriormente, la verificación continua de su identidad se llevará a cabo de forma recurrente y totalmente transparente para el usuario.
+
+Aquí nos planteamos un sistema de monitorización en tiempo real y sobre entornos de trabajo reales. De esta forma, las capturas asociadas al comportamiento se realizarán en un entorno no controlado, es decir, entornos en los que el usuario tendrá libertad de movimientos y no será un escenario guiado. Estas nos proporcionarán eventos que posteriormente convertiremos en características. Aplicando sobre estas características diferentes técnicas de Inteligencia Artificial, podremos encontrar patrones que permitan autenticar al usuario. Todos los datos del sistema se procesarán mediante una plataforma de \textit{streaming} de datos, que permitirá realizar el proceso de autenticación en tiempo real. 
+
+
+\section{Objetivos}
+\label{sec:intro:objetivos}
+
+El proyecto debe cumplir los siguientes objetivos, para garantizar la calidad y funcionalidad del mismo:
+
+\begin{enumerate}[noitemsep]
+    
+    \item Implementar una aplicación de escritorio que permita la captura de los eventos del usuario para su posterior envío. El lenguaje de programación elegido deberá permitir generar un aplicativo multiplataforma.
+    
+    \item Implementar un servidor que permita la distribución de los mensajes. Estudiando las propuestas y estándares disponibles y  seleccionando una plataforma de distribución de mensajes que permita un gran volumen de tráfico. Además, la opción elegida deberá contar con la opción de incrementar sus funcionalidades base mediante \textit{plugins} o librerías.
+    
+    \item Realizar una fase de recogida de información con la aplicación de escritorio creada, con el fin de obtener un conjunto de datos que contenga una muestra representativa de la población, es decir, personas de diferentes edades y géneros.
+    
+    \item Analizar la información recopilada, planteando, desarrollando y evaluando diferentes mecanismos de autenticación basados en el estudio de patrones de comportamiento de los usuarios mediante múltiples técnicas de Inteligencia Artificial, como pueden ser redes neuronales~\cite{werbos2008foreword}, máquinas de soporte vectorial~\cite{cortes1995support} o árboles aleatorios~\cite{Breiman2001}. Por otro lado, también será necesario estudiar las diferentes características del comportamiento de los usuarios y determinar aquellas de mayor relevancia para acometer el proceso de autenticación, generando perfiles únicos por usuario.
+    
+    \item Implementar un servicio que permita la automatización del proceso de creación de modelos únicos para cada usuario.
+    
+    \item Implementar una aplicación web que permita visualizar los datos generados y el estado del 
+    sistema de una manera sencilla. Este desarrollo se debe realizar con un \textit{framework} que agilice su programación y mantenimiento.  
+
+\end{enumerate}
+
+\section{Organización de la memoria}
+\label{sec:intro:organizacion}
+
+La memoria se estructura basándose en una serie de capítulos:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Fundamentos teóricos:} En este capítulo se abordan los diferentes términos para comprender mejor el dominio.
+    \item \textbf{Situación actual:} En este capítulo se muestra algunas de las alternativas disponibles y artículos encontrados relacionados con el tema que se trata en el proyecto.
+    \item \textbf{Planificación y evaluación de costes:} En este capítulo se exponen las fases del desarrollo del proyecto, su realización, costes, recursos y riesgos asociados.
+    \item \textbf{Tecnologías:} En este capítulo se analizan las herramientas utilizadas para el desarrollo del proyecto y las decisiones tomadas para su elección.
+    \item \textbf{Metodología:} En este capítulo se muestra la información relativa al desarrollo del proyecto.
+    \item \textbf{Inteligencia Artificial:} En este capítulo se muestra el procedimiento realizado para el proceso de creación de los modelos de los usuarios.
+    \item \textbf{Kafka - Sistemas de colas:} En este capítulo se muestra el proceso de implementación y creación del sistema de gestión de colas.
+    \item \textbf{Resultados:} En este capítulo se exponen y discuten los resultados obtenidos.
+    \item \textbf{Conclusiones:} En el último capítulo de la memoria se comprobará el grado de cumplimiento de los requisitos y su impacto. 
+    \item \textbf{Trabajo Futuro:} En este capítulo se expondrá las diferentes ramas de desarrollo que se han tenido en cuenta para la continuación del proyecto.
+ 
+\end{itemize}

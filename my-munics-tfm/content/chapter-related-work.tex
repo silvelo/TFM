@@ -1,0 +1,15 @@
+\chapter{Estado del arte} % Estado da arte
+\label{sec:related}
+
+Se pueden encontrar diferentes trabajos~\cite{Barkadehi2018,bhatnagar2013survey} que han realizado estudios preliminares para analizar la capacidad de las características de interacción del usuario con fines de autenticación, pero no abordan la cuestión de la autenticación continua. Estos trabajos han analizado la interacción sobre los principales tipos de dispositivos habituales: teclado, ratón y pantalla táctil. 
+
+La autenticación basada en ratón ha sido abordada por diferentes estudios en los últimos años. En \cite{Ahmed2005DetectingCI}, se analizó la autenticación a través de dígrafos y trígrafos de pulsaciones de teclas y diferentes acciones del ratón (movimiento del ratón, arrastrar y soltar, apuntar y hacer clic, sin movimiento) mediante redes neuronales obteniendo resultados prometedores. Los mismos autores continuaron su trabajo anterior \cite{Ahmed2007} realizando un análisis más profundo de las características de comportamiento del ratón para la autenticación mediante redes neuronales, que obtuvo resultados consistentes.
+
+En~\cite{Pusara2004}, se propuso la reautenticación de usuarios basada en los movimientos del ratón, recogiendo los movimientos en bruto y extrayendo características como las distancias, los ángulos o la velocidad, que se utilizaron para alimentar árboles de decisión. Sin embargo, dicho trabajo seguía un enfoque inusual al crear un modelo de usuario específico por aplicación, lo cual no es escalable, ya que el número de modelos necesarios para un sistema de autenticación de propósito general se volvería rápidamente inmanejable.
+
+El trabajo presentado en~\cite{Sayed2013} aborda una cuestión ligeramente diferente, la autenticación estática de usuarios, es decir, la autenticación primaria durante la fase de inicio de sesión (contraseña gráfica). Para ello, utilizaron un modelo de red neuronal que fue alimentado con características de comportamiento del ratón basadas en gestos, de manera que el usuario dibujó una serie de gestos durante la fase de inscripción que se utilizaron para el entrenamiento y luego, durante la fase de verificación de la identidad del usuario (\textit{login}), se le pedía que replicara esos gestos y se los comparaba con el modelo de referencia. Los resultados mostraron que estos métodos podrían ser también adecuados para los procesos de autenticación estática.
+
+En~\cite{Zheng2011}, se analizaron métricas basadas en el ángulo de los movimientos del ratón para verificar la identidad de los usuarios a través de máquinas de soporte vectorial.
+
+Sin embargo, la mayoría de ellos se limitan solo a escenarios controlados o incluso a condiciones particulares, como el seguimiento de la interacción solo durante la fase de inicio de sesión o la autenticación primaria mediante una contraseña gráfica. En este proyecto se destaca la importancia de un sistema de autenticación funcional, que opere de forma autonoma y completamente online, bajo entornos no controlados.
+

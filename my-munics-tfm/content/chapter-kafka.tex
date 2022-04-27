@@ -1,0 +1,108 @@
+\chapter{Kafka: Sistema de colas}
+\label{sec:kafka}
+
+En este capítulo se detallarán las medidas realizadas en \textit{Kafka} para distribuir los datos entre las aplicaciones optimizando la estabilidad del sistema y el tiempo de respuesta.
+
+\section{Envío de datos}
+
+Los datos enviados por el cliente al sistema de colas es el resultado de la combinación de la \textit{metadata}~[\cref{tab:metadata_feature}] y los datos de los eventos~[\cref{tab:raw_inputs}].
+
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{ l  l}
+        \toprule
+        \textbf{Características} & \textbf{Descripción}                        \\
+        \midrule \midrule
+        Usuario                  & Nombre del usuario del sistema              \\ \midrule
+        Versión aplicación       & Versión de la aplicación                    \\ \midrule
+        Sistema Operativo        & Nombre del sistema operativo                \\ \midrule
+        Versión del SO           & Versión del sistema operativo               \\ \midrule
+        Timestamp                & Fecha del envío de los datos (Formato UNIX) \\
+        \bottomrule
+    \end{tabular}
+    \caption{\label{tab:metadata_feature}Características de la metadata}
+\end{table}
+
+Esta definición de los mensajes implica que deben ser producidos y consumidos de manera secuencial. \textit{Kafka} asegura que los mensajes se consumen de manera secuencial solamente cuando existe una partición por cola, esto no permite escalar de forma correcta nuestro sistema, y por lo tanto es necesario definir de nuevo los datos enviados.
+
+\cfig[0.7\linewidth]{images/kafka/acatia-MouseMoveClass.png}{Diagrama de clases de los datos}{fig:mouse_move_class}
+
+La solución obtenida parte por generar bloques de eventos~[\cref{fig:mouse_move_class}] que proporcionan independencia con otros bloques pero que a su cada uno contiene la información necesaria para ser analizada por los modelos. Esta solución también nos proporciona otras mejoras:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Generamos menos tráfico:} La \textit{metadata} solo se envía una vez por grupo.
+    \item \textbf{Realizan menos peticiones de red:} Con esta solución se envía una petición por cada bloque.
+\end{itemize}
+
+Para decidir el tamaño del bloque se han tenido en cuenta dos limitaciones de nuestro sistema:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{\textit{MongoDB}}: El tamaño máximo que se puede guardan en \textit{MongoDB} es de 16~MB
+    \item \textbf{\textit{Kafka}}: La configuración por defecto del tamaño de mensaje de \textit{Kafka} es de 1~MB.
+\end{itemize}
+
+Con esta información hemos calculado los tamaños de los distintos bloques, de esta manera, saber el número de eventos a enviar por bloque. En la~\cref{tab:events_size} podemos observar los tamaños de evento y de bloque elegidos. La tabla muestra que con 1000 eventos obtenemos un tamaño de bloque inferior a 1~MB, que es el valor límite establecido por defecto en \textit{Kafka}. Además, el tiempo en obtener estos 1000 eventos es de 2 segundos, que determinará el tiempo mínimo necesario para obtener la primera predicción, por lo que es un dato que se debería mantener lo más bajo posible.
+
+Por otra parte, una de las ventajas que se observa al utilizar el bloque como forma de enviar datos entre las aplicaciones, es la reducción del tamaño. Esto implica un consumo de ancho un 72\% menor para el usuario y un 58\% para el servidor.
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{ l  c  c  c  c }
+        \toprule
+        \multirow{2}{*}{\textbf{Datos}} & \multicolumn{2}{c}{\textbf{Evento Único}} & \multicolumn{2}{c}{\textbf{Lista (1000 Eventos)}}                                         \\ \cline{2-5}
+                                        & \textbf{Solo}                             & \textbf{Con Metadata}                             & \textbf{Solo} & \textbf{Con Metadata} \\
+        \midrule  \midrule
+        Evento                          & 44 Bytes                                  & 263 Bytes                                         & 258 KB        & 72 KB                 \\
+        \midrule
+        Evento Transformado             & 953 Bytes                                 & 1,23 KB                                           & 1239 KBB       & 921 KB                \\
+        \bottomrule
+    \end{tabular}
+    \caption{Tamaño de los eventos enviados uno a uno y agrupados}
+    \label{tab:events_size}
+\end{table}
+
+
+\section{Diseño del Escenario}
+
+Una vez definida la estructura de datos dentro del sistema, queda definir las conexiones entre las diferentes aplicaciones. Para ello se plantearon cuatro escenarios distintos, en los cuales se pueden encontrar cuatro procesos:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Splitter}: Es el proceso que divide los datos por usuario.
+    \item \textbf{Transform}: Es el encargado de transformar los datos de los eventos del ratón a las características finales.
+    \item \textbf{Splitter and Transform}: Es la unión de los dos procesos anteriores, realizando ambos (transformación y división) en una sola máquina.
+    \item \textbf{Predictor}: Es el encargado de obtener la predicción para un usuario.
+\end{itemize}
+
+\subsection{Escenario 1}
+
+En este escenario [\cref{fig:scene_1}] se plantean tres máquinas, donde la primera máquina (\textbf{Splitter}) recibe los eventos de todos los usuarios y los divide en una cola por usuario, que son enviados primero a la máquina de transformación y después a la de predicción.
+
+\cfig{images/kafka/acatia-escenario_1.png}{Escenario 1}{fig:scene_1}
+
+
+Este planteamiento presenta una gran desventaja y es la necesidad de tener una máquina de transformación por cada usuario, lo que nos conlleva un alto requisito de recursos.
+
+\subsection{Escenario 2}
+
+Este escenario [\cref{fig:scene_2}] se plantean tres máquinas, pero intercambiando las máquinas de \textbf{Splitter} y \textbf{Transform} con respecto a la versión del escenario anterior.
+
+\cfig{images/kafka/acatia-escenario_2.png}{Escenario 2}{fig:scene_2}
+
+
+Está versión evita la desventaja del escenario anterior pero añade un problema y es que incrementamos el tamaño de las colas significativamente lo que implica un aumento de los tiempos de envío.
+
+\subsection{Escenario 3}
+
+Este escenario [\cref{fig:scene_4}] cuenta con dos máquinas, delegando el proceso de división a la aplicación de escritorio.
+\cfig{images/kafka/acatia-escenario_4.png}{Escenario 3}{fig:scene_4}
+
+Este planteamiento soluciona los problemas de los escenarios anteriores, pero tiene un gran inconveniente y es el almacenamiento de los datos del usuario en la base de datos de \textit{MongoDB}. El proceso de guardado se vuelve más complejo y añade una alta demanda de procesador (uno por usuario) por lo que vuelve un escenario con una escalabilidad baja.
+
+\subsection{Escenario 4}
+
+El último escenario  [\cref{fig:scene_3}] cuenta con dos máquinas, agrupando el \textbf{Splitter} y \textbf{Transform} en una sola.
+
+\cfig{images/kafka/acatia-escenario_3.png}{Escenario 3}{fig:scene_3}
+
+Este escenario soluciona los problemas comentados en el punto anterior, y también los de almacenamiento que teníamos en el escenario anterior ofreciendo un único punto de conexión para almacenar los datos con un coste de 33~ms latencia asumible por el beneficio que aporta.

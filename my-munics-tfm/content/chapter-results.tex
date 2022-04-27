@@ -1,0 +1,173 @@
+\chapter{Resultados}
+\label{sec:results}
+
+En este capítulo se presentarán los resultados obtenidos aplicando las técnicas mencionadas en los capítulos anteriores.
+
+Primero se analizarán de manera \textit{offline} y acto seguido se analizarán los procesos de creación y predicción de los modelos a lo largo del proceso de \textit{streaming}.
+
+
+\section{Datos de \textit{Random Forest}}
+
+En la~\cref{tab:rf_results} se pueden observar los resultados obtenidos para diez usuarios con el algoritmo e hiperparámentros seleccionados en la~\cref{sec:ia:rf_selection}. Los datos fueron obtenidos usando la técnica de \textit{CV} con el fin de evitar \textit{overfitting}.
+
+Los resultados muestran la media obtenida para cada usuario sobre las cinco iteraciones del \textit{CV}. En todos los casos se puede observar valores positivos, que superan el 90\% y con una desviación inferior al 1\%.
+
+Estos datos se repiten tanto para la métrica de \textit{precision} como para \textit{recall}, demostrando la fiabilidad del sistema.
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{c c c c}
+        \toprule
+        Usuario & Precision          & Recall             & Time               \\
+        \midrule \midrule
+        1 &  0.863 ($\pm$0.012) &  0.945 ($\pm$0.012) &  4.943 ($\pm$0.033) \\
+        2 &  0.914 ($\pm$0.007) &  0.925 ($\pm$0.007) &  4.914 ($\pm$0.093) \\
+        3 &  0.885 ($\pm$0.007) &  0.908 ($\pm$0.007) &  5.091 ($\pm$0.239) \\
+        4 &  0.883 ($\pm$0.013) &  0.924 ($\pm$0.013) &  4.907 ($\pm$0.084) \\
+        5 &  0.870 ($\pm$0.010) &  0.880 ($\pm$0.010) &  4.919 ($\pm$0.039) \\
+        6 &  0.911 ($\pm$0.017) &  0.937 ($\pm$0.017) &  4.882 ($\pm$0.003) \\
+        7 &  0.950 ($\pm$0.005) &  0.920 ($\pm$0.005) &  4.898 ($\pm$0.150) \\
+        8 &  0.860 ($\pm$0.014) &  0.930 ($\pm$0.014) &  4.904 ($\pm$0.129) \\
+        9 &  0.961 ($\pm$0.008) &  0.963 ($\pm$0.008) &  4.929 ($\pm$0.086) \\
+        10 &  0.956 ($\pm$0.006) &  0.931 ($\pm$0.006) &  4.860 ($\pm$0.041) \\
+        11 &  0.977 ($\pm$0.005) &  0.972 ($\pm$0.005) &  4.789 ($\pm$0.122) \\
+        12 &  0.906 ($\pm$0.011) &  0.938 ($\pm$0.011) &  4.920 ($\pm$0.100) \\
+        \midrule \midrule
+        Media &  0.911 ($\pm$0.010) &  0.931 ($\pm$0.010) &  4.913 ($\pm$0.093) \\
+        \bottomrule
+    \end{tabular}
+
+    \caption{Resultados de predicción obtenidos}
+    \label{tab:rf_results}
+\end{table}
+
+Con el fin de comprobar la robustez del sistema se obtuvo el \textit{EER}. En la~\cref{fig:frr_far_user} se puede observar la intersección de las curvas de \textit{FRR} y \textit{FAR} con el fin de obtener de \textit{EER} y cuyos valores se pueden consultar en la~\cref{tab:rf_eer_results}. En ella se puede observar que el ratio es 0.079 con una mínima desviación. Esto implica que el sistema tiene una tasa de fallo inferior al 8\%, lo que ofrece una alta fiabilidad.
+
+\cfig{images/results/frr_far.png}{FAR y FRR de un conjunto de 5 usuarios}{fig:frr_far_user}
+
+
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{c c}
+        \toprule
+        Usuario & Equal Error Rate (EER) \\
+        \midrule \midrule
+        1 &  0.098~($\pm$0.011) \\
+        2 &  0.080~($\pm$0.007) \\
+        3 &  0.102~($\pm$0.005) \\
+        4 &  0.100~($\pm$0.005) \\
+        5 &  0.126~($\pm$0.013) \\
+        6 &  0.077~($\pm$0.012) \\
+        7 &  0.061~($\pm$0.008) \\
+        8 &  0.111~($\pm$0.012) \\
+        9 &  0.038~($\pm$0.005) \\
+        10 &  0.051~($\pm$0.005)\\
+        11 &  0.025~($\pm$0.005)\\
+        12 &  0.080~($\pm$0.001)\\
+        \midrule\midrule
+        Media &  0.079~($\pm$ 0.008) \\
+        \bottomrule
+    \end{tabular}
+    \caption{Valores de \textit{EER}}
+    \label{tab:rf_eer_results}
+\end{table}
+
+
+
+\section{Datos de \textit{Streaming}}
+
+Uno de los principales problemas del sistema online es el tiempo que tarda en conseguir los datos necesarios para generar el modelo. En el proyecto se utilizan 20000 eventos, 10000 del usuario legítimo y 10000 de otros usuarios, para crear el modelo. Por lo tanto, necesitamos calcular el tiempo que se tarda en obtener 20000 eventos, debido a que los eventos de múltiples usuarios son generados de manera simultánea. En la~\cref{tab:events_time} se pueden ver los tiempos obtenidos en diez pruebas. En ella se observa la cantidad máxima de eventos generados por un ratón a los diez segundos en diferentes iteraciones. Con estos resultados se ha calculado el tiempo para generar un bloque de 1000 eventos (2.025 segundos) y de 10 bloques.
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{c c c c}
+        \toprule
+        Iteración & Movimientos en 10 segundos & 1 Bloque & 10 Bloques \\
+        \midrule\midrule
+        1         & 5001.0                     & 1.999    & 19.996     \\
+        2         & 4999.0                     & 2.000    & 20.004     \\
+        3         & 4994.0                     & 2.002    & 20.024     \\
+        4         & 4984.0                     & 2.006    & 20.064     \\
+        5         & 4999.0                     & 2.000    & 20.004     \\
+        6         & 4993.0                     & 2.002    & 20.028     \\
+        7         & 4605.0                     & 2.171    & 21.715     \\
+        8         & 4997.0                     & 2.001    & 20.012     \\
+        9         & 4983.0                     & 2.006    & 20.068     \\
+        10         & 4858.0                     & 2.058    & 20.584     \\
+        \midrule\midrule
+        Media     & 4941.3                     & 2.025    & 20.250     \\
+        \bottomrule
+    \end{tabular}
+    \caption{Tiempo de obtención los eventos}
+    \label{tab:events_time}
+\end{table}
+
+Por lo tanto, estos datos nos indican que el tiempo mínimo para que el sistema empiece a realizar predicciones sería de 20.25 segundos.
+
+A estos datos también hay que añadir el tiempo que el sistema tarda en generar el modelo. La~\cref{tab:creation_models_time} muestra el tiempo necesario para obtener los datos de la base de datos, la creación del modelo y la creación de la máquina para realizar predicciones. El tiempo obtenido 29.802 segundos de media. Para todos los modelos, la mayor parte de este tiempo se centra en su creación, en la cual se utiliza solo un núcleo de la máquina. De este modo, podríamos escalar la máquina verticalmente (es decir, incrementando sus recursos) y reducir los tiempos linealmente.
+
+
+\begin{table}[htbp!]
+    \begin{tabularx}{\textwidth}{l |  C C C | c}
+        \toprule
+        \multirow{2}{*}{Usuarios} & \multicolumn{4}{c}{Tiempos}                                                                 \\ \cline{2-5}
+                                                        & Obtener datos & Creación modelo & Creación máquina & Total    \\
+        \midrule\midrule
+        1    &    4.143 &          21.386 &             1.029 &                26.558 \\
+        2    &    5.561 &          20.511 &             1.919 &                27.991 \\
+        3    &    5.811 &          22.602 &             1.904 &                30.317 \\
+        4    &    5.322 &          24.545 &             0.868 &                30.735 \\
+        5    &    4.335 &          20.296 &             1.012 &                25.643 \\
+        6    &    4.276 &          23.355 &             1.717 &                29.348 \\
+        7    &    4.168 &          21.288 &             1.022 &                26.478 \\
+        8    &    5.193 &          25.638 &             1.055 &                31.886 \\
+        9    &    4.651 &          24.155 &             1.211 &                30.017 \\
+        10    &    4.880 &          20.578 &             1.756 &                27.214 \\
+        11    &    4.710 &          24.501 &             1.061 &                30.272 \\
+        12    &    4.286 &          25.306 &             1.783 &                31.375 \\
+        \midrule\midrule
+        Media &    4.778 &          23.168 &             1.856 &                29.802 \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Tiempos de creación de los modelos en el sistema}
+    \label{tab:creation_models_time}
+\end{table}
+
+
+Una vez creado el modelo, el sistema empieza a realizar las predicciones de manera inmediata con los datos que se encuentran en las colas. En la~\cref{tab:prediction_time} se muestra el tiempo que tarda un administrador en ver la predicción desde que el bloque se envía al sistema. Como se puede observar, tanto el tiempo de procesado de los eventos como el de predicción son ínfimos en comparación con el tiempo de transporte, que es externo al sistema y depende de factores ajenos como la conexión a internet. Aún con este tiempo, la media se mantiene inferior a los 7 segundos, un tiempo aceptable para ser considerado un sistema de procesamiento en tiempo real en este ámbito de aplicación.
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{c | c c c | c}
+        \toprule
+        \multirow{2}{*}{Usuarios} & \multicolumn{4}{c}{Tiempo}                              \\ \cline{2-5}
+                                  & Procesado                  & Predicción & Envío & Total \\
+        \midrule\midrule
+        1    &      0.4320 & 0.922399 & 8.8620 &           10.216399 \\
+        2    &      0.4050 & 0.920659 & 3.3790 &            4.704659 \\
+        3    &      0.4470 & 0.923645 & 5.2140 &            6.584645 \\
+        4    &      0.3910 & 0.924681 & 4.1190 &            5.434681 \\
+        5    &      0.4330 & 0.919187 & 6.5520 &            7.904187 \\
+        6    &      0.4216 & 0.921780 & 5.6252 &            6.968580 \\
+        7    &      0.4320 & 0.917038 & 8.8620 &           10.211038 \\
+        8    &      0.4050 & 0.820295 & 3.3790 &            4.604295 \\
+        9    &      0.4470 & 0.820450 & 5.2140 &            6.481450 \\
+        10    &      0.3910 & 0.919727 & 4.1190 &            5.429727 \\
+        11    &      0.4330 & 0.918583 & 6.5520 &            7.903583 \\
+        12    &      0.4216 & 0.920441 & 5.6252 &            6.967241 \\
+        \midrule\midrule
+        Media &      0.904074 &        0.4320 &         5.6252 &            6.961274 \\
+
+
+        \bottomrule
+    \end{tabular}
+    \caption{Tiempos de obtención de predicciones}
+    \label{tab:prediction_time}
+\end{table}
+
+En la~\cref{fig:acatia_web_auth} se muestra la ventana de administración con los datos obtenidos a lo largo del desarrollo del proyecto. En esta prueba los usuarios utilizaron su ordenador con el sistema de autenticación activado durante su jornada laboral. Los resultados muestran que el sistema de autenticación detecta correctamente a cuatro de los seis usuarios mostrados. Los otros dos usuarios (en color rojo) obtienen un peor porcentaje debido a que durante el transcurso del proyecto cambiaron su ratón por uno ergonómico, demostrando la necesidad de actualizar el modelo utilizado para estos usuarios. Dicho procedimiento se comentará en el~\cref{sec:future_work} como una de las líneas de trabajo futuro.
+
+
+\cfig{images/results/acatia_web_users.png}{Ventana de administración con datos de autenticación}{fig:acatia_web_auth}
+

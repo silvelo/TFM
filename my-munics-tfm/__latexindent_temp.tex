@@ -1,0 +1,129 @@
+% !TEX root = my-tfm.tex
+
+% **************************************************
+% Files' Character Encoding
+% **************************************************
+%% Not necessary with luaLaTeX
+% 
+\PassOptionsToPackage{utf8}{inputenc}
+\usepackage{inputenc}
+
+
+% **************************************************
+% Information and Commands for Reuse
+% **************************************************
+\newcommand{\thesisTitle}{Sistema de autenticación continua basado en el comportamiento mediante técnicas de streaming}
+\newcommand{\thesisName}{Arturo Silvelo Pallín}
+\newcommand{\thesisSubject}{Trabajo Fin de Máster}
+\newcommand{\thesisDate}{Curso 2020/2021}
+
+\newcommand{\thesisFirstSupervisor}{José Carlos Dafonte Vázquez}
+\newcommand{\thesisSecondSupervisor}{Daniel Garabato Míguez}
+
+\newcommand{\thesisUniversityStudies}{\protect{Máster Inter-Universitario en Ciberseguridad}}
+\newcommand{\thesisUniversity}{Universidad de A Coruña}     % Replace with your university
+\newcommand{\thesisUniversitySchool}{Facultad de Informática} % Replace with your school
+\newcommand{\thesisUniversityCity}{A Coruña}  % Replace with your city
+\newcommand{\thesisUniversityStreetAddress}{Campus de Elviña}
+\newcommand{\thesisUniversityPostalCode}{15071}
+
+
+% **************************************************
+% Debug LaTeX Information
+% **************************************************
+%\listfiles
+
+% **************************************************
+% Load and Configure Packages
+% **************************************************
+%\usepackage[spanish]{babel} % babel system, adjust the language of the content
+
+\usepackage{polyglossia}
+\setdefaultlanguage{spanish}
+
+\PassOptionsToPackage{% setup clean thesis style
+    figuresep=colon,
+    hangfigurecaption=false,
+    hangsection=true,
+    hangsubsection=true,
+    sansserif=false,
+    configurelistings=true,
+    colorize=full,
+    colortheme=bluemagenta,
+    configurebiblatex=true,
+    bibsys=biber,
+    bibfile=bib-refs,
+    bibstyle=numeric-comp, %numeric-comp, numeric-verb, alphabetic 
+    bibsorting=nty,
+}{munics}
+\usepackage{munics}
+
+\hypersetup{% setup the hyperref-package options
+    pdftitle={\thesisTitle},    %   - title (PDF meta)
+    pdfsubject={\thesisSubject},%   - subject (PDF meta)
+    pdfauthor={\thesisName},    %   - author (PDF meta)
+    plainpages=false,           %   -
+    colorlinks=false,           %   - colorize links?
+    pdfborder={0 0 0},          %   -
+    breaklinks=true,            %   - allow line break inside links
+    bookmarksnumbered=true,     %
+    bookmarksopen=true          %
+}
+
+% **************************************************
+% Other Packages
+% **************************************************
+%\usepackage{fontspec}
+\usepackage{scrhack}
+\usepackage{subcaption}
+\usepackage[justification=centering]{caption}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tablefootnote}
+\usepackage{amsmath}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{ragged2e}
+\usepackage[official]{eurosym}
+\usepackage{amsmath}
+\usepackage{longtable}
+\usepackage[capitalize]{cleveref}
+\usepackage{xcolor}
+
+% **************************************************
+% Caption Setup
+% **************************************************
+\captionsetup{belowskip=12pt,aboveskip=4pt}
+
+% **************************************************
+% Tabular X
+% **************************************************
+\newcolumntype{C}{>{\Centering\arraybackslash}X} % centered "X" column
+\newcolumntype{S}{>{\hsize=.4\hsize}X} % Small column
+
+% **************************************************
+% Formulas
+% **************************************************
+\DeclareMathOperator{\atantwo}{atan_2}
+\makeatletter
+\DeclareRobustCommand{\atan}{%
+    \operatorname{atan}%
+    \@ifnextchar2{_}{}%
+}
+\makeatother
+
+
+% **************************************************
+% Custom Figure
+% **************************************************
+\newenvironment{cfigure}{
+    \begin{figure}[hbtp!]
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }

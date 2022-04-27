@@ -1,0 +1,190 @@
+\chapter{Planificación y Metodología}
+\label{sec:manager}
+
+Todo proyecto debería de disponer de una planificación inicial para establecer un guión a seguir, asegurando el cumplimiento de los plazos, costes y calidad del producto final. A lo largo de este capítulo se detallará la planificación realizada para llevar a cabo el proyecto.
+
+En un primer punto se detallarán los recursos que han participado y las tareas del  las tareas del proyecto. Con estos datos podemos establecer la planificación inicial creando para ello su línea base\footnote{Es una foto fija de la planificación efectos de comparación}. A la finalización del proyecto se compararán los resultados estimados con los reales, con el fin de obtener los puntos críticos e intentar evitarlos en futuros proyectos.
+
+En la última sección del capítulo se realizará un análisis de riesgos, exponiendo que riesgos podrían presentarse y, para los más críticos realizar una planificación, para que en el caso de ocurrir podamos reducir o evitar su impacto.
+
+\section{Recursos y actividades}
+\label{sec:manager:resources}
+
+Para la elaboración de cualquier proyecto debemos conocer que recursos participarán en él y cual es su disponibilidad. En la~\cref{tab:resources} podemos observar los recursos que participarán en el proyecto.
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        \textbf{Recurso}                 & \textbf{Coste}    \\
+        \midrule \midrule
+        Programador Front End            & \euro{16}/hora    \\ 
+        Programador Back End             & \euro{16}/hora    \\ 
+        Programador Data Science         & \euro{20}/hora    \\ 
+        Escritor                         & \euro{14}/hora    \\ 
+        Analista                         & \euro{22}/hora    \\ 
+        Diseñador                        & \euro{22}/hora    \\ 
+        Director 1                       & \euro{25}/hora    \\ 
+        Director 2                       & \euro{25}/hora    \\ 
+        Servidor                         & \euro{0.013}/hora \\ 
+        Servidores para entrenamiento IA & \euro{0.7}/hora   \\ 
+        Ordenador                        & \euro{650}        \\
+        \bottomrule
+    \end{tabular}
+    \caption{Tabla de recursos~\cite{ministerio}}
+    \label{tab:resources}
+\end{table}
+
+
+Una vez definidos los recursos procedemos a describir las tareas y desglosarlas en tareas más pequeñas con el fin de gestionarlas mejor. A continuación se muestran las tareas y subtareas con una breve descripción:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Estudio de viabilidad del proyecto}
+    \begin{itemize}
+        \item \textbf{Estudio de estándares y propuestas:} Se pretende analizar la situación actual, estudiando estándares y propuestas  similares disponibles para identificar las ventajas que podremos aplicar a nuestro proyecto.
+        \item \textbf{Análisis de las diferentes tecnologías existentes:} Se estudiará el estado del arte de las tecnologías actuales con el fin de determinar aquellas que mejor se ajustan a las características de nuestro proyecto.
+        \item \textbf{Documentación del proyecto:} Elaborar la memoria del proyecto y otra documentación sobre instalación y configuración del proyecto.
+    \end{itemize}
+    \item \textbf{Gestión del proyecto}
+    \begin{itemize}
+        \item \textbf{Análisis de requisitos:} Se estudiarán los requisitos del software a desarrollar, atendiendo a las diferentes necesidades del proyecto y estableciendo una línea de trabajo que nos garantice la finalización del proyecto.
+        \item \textbf{Análisis de riesgos:} Se llevará a cabo una identificación de aquellos riesgos que puedan surgir durante el desarrollo del proyecto, estableciendo un plan para su prevención y mitigación, de forma que se garantice el cumplimiento de los objetivos planteados.
+        \item \textbf{Especificación del proyecto:} Se asentarán los conocimientos adquiridos durante las fases previas, definiendo la arquitectura, los componentes y las tecnologías que emplearemos durante el desarrollo del proyecto para su consecución.
+        \item \textbf{Seguimiento del proyecto y gestión de riesgos:} Este proyecto se realizará siguiendo una metodología de desarrollo iterativa incremental, en la que se establecerán diferentes fases y se llevará a cabo un seguimiento periódico del mismo.
+    \end{itemize}
+    \item \textbf{Desarrollo del software de captura de datos}
+    \begin{itemize}
+        \item \textbf{Desarrollo de la aplicación captura:} Uno de los aspectos más importantes de la experimentación consiste en la obtención de una muestra de datos representativa que lo posibilite. Durante esta fase, se desarrollará un sistema que permita recopilar la información procedente del ratón.
+        \item \textbf{Distribución del software:} Se realizará una campaña de distribución del software desarrollado en la fase previa para poder recopilar los datos de aquellos usuarios a los que se les ha proporcionado.
+        \item \textbf{Obtención de datos:} Durante este período se recopilará un volumen de datos suficiente para poder llevar a cabo la elaboración de los diferentes modelos de autenticación en la siguiente fase. La calidad de la muestra recopilada determinará, en gran medida, el proceso a seguir en las siguientes fases.
+    \end{itemize}
+    \item \textbf{Planteamiento e implementación de los algoritmos}
+    \begin{itemize}
+        \item \textbf{Implementación de un conjunto de algoritmos de Inteligencia Artificial:} Se analizarán diferentes técnicas de Inteligencia Artificial que permitan llevar a cabo el proceso de autenticación para verificar la identidad de los usuarios. Para ello, será necesario realizar un adecuado tratamiento de los datos recopilados, de forma que nos permita definir una serie de características identificativas de los usuarios que puedan ser procesadas por la técnica o técnicas escogidas.
+        \item \textbf{Entrenamiento del conjunto de algoritmos:} Se entrenarán con las técnicas seleccionadas, elaborando un perfil de autenticación único para cada usuario que permita verificar unívocamente si el comportamiento detectado se corresponde con el comportamiento del usuario autenticado al inicio de la sesión.
+        \item \textbf{Optimización de los algoritmos de clasificación:} El sistema ha de ser capaz de manejar un gran volumen de información procedente de los eventos asociados al ratón. Por tanto, será necesario optimizar el proceso de entrenamiento y evaluación de estos modelos de forma que permitan llevar a cabo el proceso de autenticación en tiempo real y de forma continuada durante las sesiones.
+    \end{itemize}
+    \item \textbf{Planteamiento e implementación sistema de colas}
+    \begin{itemize}
+        \item \textbf{Creación y configuración de la infraestructura para el alojamiento del sistema:} Para llevar a cabo el proceso de monitorización continua del comportamiento de los usuarios es necesario disponer de un sistema que permita procesar en tiempo real el gran volumen de información generado. Para ello, se requiere de una infraestructura hardware y software capaz de soportar tal carga de trabajo y que, además, cumpla con los requisitos para implementar un sistema de colas en la siguiente etapa.
+        \item \textbf{Implementación y configuración del sistema de colas:} Los eventos asociados al uso del ratón se procesarán mediante un sistema de colas que permita obtener unos tiempos de latencia bajos, propios de un sistema en tiempo real, para llevar a cabo el proceso de autenticación dinámicamente.
+        \item \textbf{Integración de los sistemas de Inteligencia Artificial:} El proceso de autenticación se realizará dentro del propio sistema de colas sirviéndose de los perfiles de usuario basados en modelos de IA elaborados anteriormente, de forma que los eventos entrantes de la sesión activa se puedan autenticar en tiempo real.
+    \end{itemize}
+    \item \textbf{Desarrollo del software de gestión}
+    \begin{itemize}
+        \item \textbf{Desarrollo de una aplicación web para la administración del sistema:} El mecanismo de autenticación desarrollado en las fases previas precisa de un sistema que permita configurar adecuadamente los parámetros del mismo, como pueden ser la respuesta ante una autenticación negativa (bloqueo de la sesión de usuario, notificación al administrador del sistema responsable, etc.), así como también debe ofrecer la posibilidad de analizar el estado general del sistema de autenticación (tasa de éxitos, tasa de fallos, etc). Para ello se propone un entorno web que permita desarrollar estas tareas de manera deslocalizada.
+        \item \textbf{Integración con el software de autenticación:} La aplicación web descrita anteriormente debe comunicarse de forma efectiva con el software de autenticación utilizado, tarea que se abordará en este punto.
+    \end{itemize}
+\end{enumerate}
+
+\section{Planificación Inicial}
+\label{sec:manager:plan}
+La planificación inicial estima como deberá de ejecutarse todo el proyecto, las relaciones entre las tareas y los recursos asignados a estas. En la~\cref{fig:tasks} se pueden ver todas las tareas del proyecto, sus dependencias y los recursos asignados.
+
+\cfig{images/plan/resources.png}{Lista de tareas planificadas}{fig:tasks}
+
+\section{Seguimiento del proyecto}
+\label{sec:manager:monitoring}
+
+En esta sección se detallará el seguimiento realizado sobre el proyecto a su finalización, ya que durante su transcurso se produjeron algunos retrasos.
+
+La \cref{tab:monitoring} muestra la desviación entre la planificación prevista inicialmente y los datos reales alcanzados al final del proyecto, donde se puede observar un retraso de 50 días. Este retraso se debió en gran medida a que los recursos asignados al proyecto tuvieron que dedicarle tiempo a otro proyecto simultáneamente, y por lo tanto solo se observa un retraso en el tiempo y no en costes directos.
+
+\begin{table}[htbp!]
+    \centering
+    \begin{tabular}{l r r}
+        \toprule
+                        & \textbf{Estimación} & \textbf{Real}    \\
+        \midrule \midrule
+        Fecha de Inicio & 01/02/2021          & 01/02/2021       \\ \midrule
+        Fecha de Fin    & 17/12/2022          & 25/02/2022       \\ \midrule
+        Trabajo         & 6,744 horas         & 6,744 horas    \\ \midrule
+        Duración        & 229.5 días          & 279.5 días  \\  \midrule
+        Costo           & \euro{69,279.00}    & \euro{69,279.00} \\ \midrule
+        Variación       &                     & 50 días          \\
+        \bottomrule
+    \end{tabular}
+    \caption{Costes y tiempos del proyecto}
+    \label{tab:monitoring}
+\end{table}
+
+
+En la~\cref{fig:gantt} se puede ver el diagrama de Gantt del proyecto una vez finalizado.
+
+\cfig{images/plan/ganttv1.png}{Diagrama de Gantt}{fig:gantt}
+
+
+
+\section{Análisis de riesgos}
+\label{sec:manager:risks}
+
+A la hora de planificar un proyecto hay que tener en cuenta las posibles situaciones de riesgo que pueden afectar a la planificación prevista para el proyecto, tanto en términos de tiempo como de coste. 
+
+A la hora de preparar un plan de riesgos se siguen ciertos pasos ya establecidos:
+\begin{itemize}[noitemsep]
+    \item \textbf{Identificación}: Elaborar una lista de posibles riesgos.
+    \item \textbf{Valoración}: Cuantificar los riesgos para conocer el impacto que tendrían.
+    \item \textbf{Análisis}: Estudiar alternativas y crear planes de prevención y contención.
+\end{itemize}
+
+Para este proyecto se han identificado algunos riesgos [\cref{tab:risk}] que en caso de suceder podrían retrasar el proyecto.
+
+\begin{table}[htbp!]
+    \setlength\extrarowheight{2pt} % for a bit of visual "breathing space"
+    \centering
+    \begin{tabularx}{\linewidth}{S X c c}
+        \toprule
+        \textbf{Nombre}           & \textbf{Descripción}                                                                                                                   & \textbf{Prob.} & \textbf{Impacto} \\
+        \midrule \midrule
+        Conocimiento del dominio  & Parte del dominio del proyecto es desconocido para el autor.                                                                            & Alto           & Medio            \\ \midrule
+        Configuración del sistema & La configuración de cada una de las partes del servidor puede llegar a ser bastante complicada en ciertos puntos y generar conflictos. & Alto           & Medio            \\ \midrule
+        Caídas de servidores      & Los servidores pueden sufrir problemas. & Media          & Bajo             \\ \midrule
+        Análisis de Datos         & Buscar características que sean identificativas del usuario.                                                                             & Alto           & Alto             \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Tabla de riesgos}
+    \label{tab:risk}
+\end{table}
+
+Para algunos de ellos se ha elaborado un plan de contingencia para minimizar su impacto en caso de que ocurran [\cref{tab:risk_managment}].
+
+\begin{table}[htbp!]
+    \setlength\extrarowheight{2pt} % for a bit of visual "breathing space"
+    \centering
+    \begin{tabularx}{\textwidth}{S X}
+        \toprule
+        \textbf{Riesgos}          & \textbf{Plan de Gestión}                                                                                                                     \\
+        \midrule \midrule
+        Configuración del sistema & Tener una copia de seguridad actualizada con toda la configuración y servicios necesario, para poder volver a una configuración estable.      \\ \midrule
+        Caída de servidores       & Tener automatizado el despliegue del servidor para desplegar un nuevo servidor, pudiendo continuar el desarrollo en local o en otro servidor. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Tabla de gestión de riesgos}
+    \label{tab:risk_managment}
+\end{table}
+
+\section{Metodología}
+Con el fin de seguir la planificación planteada y conseguir alcanzar los objetivos definidos hemos elegido una metodología de desarrollo iterativa incremental. Esta metodología ágil nos permitirá optimizar la realización de un proyecto sobre tecnologías poco conocidas y con cambios frecuentes debido al análisis que requieren ciertas partes del proyecto.
+
+
+\subsection{Desarrollo incremental}
+Este método consiste en una serie de iteraciones, en ventanas de tiempo, en las que al final de las mismas tendremos una parte del producto que el cliente podrá revisar y posteriormente mejorar y/o corregir [\cref{fig:metologia}]
+
+\cfig{images/arquitectura/metodologia.png}{Fases del modelo incremental}{fig:metologia}
+
+
+Esta metodología exige tener dos grupos de usuarios:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Cliente\footnote{Al ser un proyecto de fin de máster, no existe un cliente como tal, por lo que se ha decidido que los directores del proyecto tomen el rol de clientes.}:} Se encarga de revisar el producto al final de las iteraciones.
+    \item \textbf{Desarrollador:} Se encarga de desarrollar el producto.
+\end{itemize}
+
+
+Las principales razones por las que se ha elegido esta metodología frente a otras existentes son:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{El cliente no sabe exactamente lo que necesita:} Al inicio del proyecto se tenía una idea general del proyecto pero al tratarse de un proyecto con tantas partes diferenciadas los cambios, tecnologías, conexiones~\dots podrían sufrir cambios que implicasen redefinir ciertos conceptos.
+
+    \item \textbf{Obtener un producto usable:} Este proyecto tiene una parte crítica, la de obtener el conjunto de datos lo más rápido posible. Esta parte implica tener una aplicación y el sistema de guardado de información lo antes posible para no bloquear el proyecto.
+\end{itemize}

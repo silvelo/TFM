@@ -1,0 +1,21 @@
+\chapter{Conclusiones}
+\label{sec:conclusion}
+
+Los resultados obtenidos del proyecto desarrollado demuestran que es posible un sistema de autenticación, como segundo factor, basado en el comportamiento del usuario y utilizando técnicas de \textit{streaming} para obtener un sistema que es capaz de trabajar en tiempo real a la hora de predecir la legitimidad del usuario.
+
+Para la obtención de datos se creó una aplicación multiplataforma que permitió capturar los eventos generados por el usuario para su posterior análisis. Esta aplicación se instaló en las máquinas de 12 usuarios con el fin de capturar los eventos generados por el ratón.
+
+Con estos datos recopilados se aplicaron diferentes técnicas de Inteligencia Artificial~(\cref{sec:ia}) y los resultados obtenidos después de los diferentes procedimientos obtuvieron un porcentaje de acierto superior al 90\%.
+
+Se implementaron múltiples contenedores con \textit{docker} que nos permitieron automatizar todo el proceso de generación de los modelos de predicción y la obtención de las predicciones. Al usar los contenedores de docker, pudimos aislar los distintos servicios, configurando que solo sean visibles por red entre ellos y que no tengan acceso hacia el exterior, lo que nos ofreció una mayor seguridad a la hora de implantar el sistema en producción.
+
+Para el almacenamiento de los datos se creó un \textit{clúster} de \textit{MongoDB}, lo que nos permitió tener acceso y  redundancia de los datos. Esta configuración final realizada tiene una mayor tolerancia a fallos y facilita el acceso a los datos en caso de fallo en algún nodo.
+
+Para el control y envío de estos datos se implementó una plataforma de gestión de colas (\textit{Kafka}). Esta plataforma envía los datos de los eventos de ratón a la Base de Datos y alimenta el resto de aplicativos con los datos necesarios. Esto nos permite que los procesos de transformación de datos y predicción se realicen con una baja latencia.
+
+Por último, se diseñó y creó una aplicación web que presentase el estado del sistema, mostrando en todo el momento la información relevante sobre los usuarios. Esta presentación permite a un administrador del sistema tener una visión clara del estado actual del sistema.
+
+Como conclusión a título personal, en proyecto se emplearon diferentes tecnologías de diversos ámbitos, lo que me ofreció la posibilidad de investigar sobre dichas tecnologías que a priori no conocía, ampliando de esta manera el conocimiento sobre ciertas áreas como el procesamiento de datos empleando un sistema de colas o la gestión y automatización de una red virtual de ordenadores con docker. 
+
+
+
